@@ -12,17 +12,16 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 .container {
     display: flex;
-    flex-direction: row;
-    max-width: 1000px;
+    max-width: 900px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    margin: 0 auto;
+    margin: 40px auto;
 }
 
 .loginImage {
@@ -30,16 +29,27 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20;
 }
 
 .loginImage img {
-    max-width: 100%;
+    max-width: 60%;
     height: auto;
+    margin-left: 150px;
 }
 
 .loginForm {
     flex: 1;
-    padding: 40px;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2px;
+    aspect-ratio: 1 / 1;
+    margin-right: 200px;
+    max-width: 400px;
+    box-shadow: -5px 0 7px rgba(0, 0, 0, 0.07),
+                0 5px 7px rgba(0, 0, 0, 0.07),
+                5px 0 7px rgba(0, 0, 0, 0.07);
 }
 
 .loginTitle {
