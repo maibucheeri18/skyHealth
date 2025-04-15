@@ -56,18 +56,22 @@ main {
     font-size: 24px;
     margin-bottom: 20px;
     font-weight: 600;
+    background: linear-gradient(
+        to right,
+        rgba(255, 140, 0, 1) 0%,
+        rgba(248, 0, 50, 1) 17%,
+        rgba(255, 0, 160, 1) 35%,
+        rgba(140, 40, 255, 1) 59%,
+        rgba(0, 35, 255, 1) 76%,
+        rgba(25, 160, 255, 1) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
 }
 
-.loginTitle span:nth-child(1) {
-    color: #ff6b35;
-}
-
-.loginTitle span:nth-child(2) {
-    color: #333;
-}
-
-.loginTitle span:nth-child(3) {
-    color: #4838d1;
+.loginLabel {
+    font-weight: bold;
 }
 
 .formLinks {
@@ -76,7 +80,7 @@ main {
 
 .formLinks a {
     text-decoration: none;
-    color: #4838d1;
+    color: #000ff5;
 }
 
 form {
@@ -95,14 +99,15 @@ input[type="password"] {
 }
 
 .forgotPassword {
-    color: #4838d1;
+    color: #000ff5;
     text-decoration: none;
     font-size: 14px;
     align-self: flex-start;
+    font-weight: bold;
 }
 
 .loginButton {
-    background-color: #4838d1;
+    background-color: #000ff5;
     color: white;
     padding: 12px;
     border: none;
@@ -111,10 +116,6 @@ input[type="password"] {
     font-size: 16px;
     font-weight: 500;
     margin-top: 15px;
-}
-
-.loginButton:hover {
-    background-color: #3929b0;
 }
 
 @media (max-width: 768px) {
