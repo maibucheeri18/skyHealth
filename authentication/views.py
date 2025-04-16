@@ -5,3 +5,6 @@ from django.http import HttpResponse
 
 def login(request):
     return render(request, 'login.html')
+
+def security_questions(request):
+    return render(request, 'securityQuestions.html')
