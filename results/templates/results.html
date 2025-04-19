@@ -7,6 +7,8 @@
     <title>Results</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- dropdown icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- webpage CSS -->
     <link href="{% static 'results.css'%}" rel="stylesheet">
 </head>
@@ -16,7 +18,137 @@
     </header>
 
     <main>
-        
+        <div class="container-fluid">
+            <div class="row">
+                <div class="search-container">
+                    <div class="search-filters">
+
+                        <!-- search filters based on the user role = engineer and team leader -->
+                        <div class="engineer-leader-filtes" style="display: none;">
+                            <!-- type filter -->
+                            <div class="filter-item">
+                               <div class="dropdown-container">
+                                    <button class="dropdown-toggle" type="button" id="typeDropdown">
+                                        Type
+                                        <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="individual"> Individual
+                                            </label>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="team"> Team
+                                            </label>
+                                        </div>
+                                    </div>
+                               </div>
+                            </div>
+                            <!-- health check card filter -->
+                            <div class="filter-item">
+                                <div class="dropdown-container">
+                                     <button class="dropdown-toggle" type="button" id="healthCheckCardDropdown">
+                                        Health Check Card
+                                        <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
+                                     </button>
+                                     <div class="dropdown-menu">
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="all"> All Cards
+                                            </label>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="1"> 1. Teamwork
+                                            </label>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="2"> 2. Mission
+                                            </label>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="3"> 3. Support
+                                            </label>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="4"> 4. Fun
+                                            </label>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="5"> 5. Pawn or Players
+                                            </label>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="6"> 6. Health of Codebase
+                                            </label>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="7"> 7. Speed
+                                            </label>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="8"> 8. Learning
+                                            </label>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="9"> 9. Work-Life
+                                            </label>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="10"> 10. Right Tools for the Job
+                                            </label>
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
+                            <!-- progress over time filter -->
+                            <div class="filter-item">
+                                <div class="dropdown-container">
+                                    <button class="dropdown-toggle" type="button" id="progressOverTimeDropdown">
+                                        Progress Over Time
+                                        <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="3"> Last 3 months
+                                            </label>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="6"> Last 6 months
+                                            </label>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="9"> Last 9 months
+                                            </label>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <label>
+                                                <input type="checkbox" value="12"> Last 12 months
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>
