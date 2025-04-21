@@ -30,4 +30,22 @@ main {
     align-items: center;
     padding: 20px;
     overflow: hidden;
+    color: var(--amber);
 } 
+
+.form-container{
+    max-width: 1200px;
+    width: calc(82vh - 112px);
+}
+
+.progress {
+    width: 1150px;
+    height: 15px;
+    background-color: #d9d9d9;
+    margin: 40px auto; /* Centers it horizontally */
+    border-radius: 8px;
+    position: absolute;
+    top: 15%;
+    right: 5%;
+    left: 5%;
+}
