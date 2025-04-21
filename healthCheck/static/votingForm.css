@@ -49,3 +49,15 @@ main {
     right: 5%;
     left: 5%;
 }
+
+.start-button{
+    padding: 10px 55px;
+    background-color: var(--sky-primary-blue); 
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 1rem;
+    position: absolute;
+    bottom: 10%;
+    right: 16%;
+}
