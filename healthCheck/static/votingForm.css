@@ -30,34 +30,64 @@ main {
     align-items: center;
     padding: 20px;
     overflow: hidden;
-    color: var(--amber);
 } 
 
 .form-container{
-    max-width: 1200px;
-    width: calc(82vh - 112px);
+    width: 1300px !important;
+    height: 700px;
+    margin: 0 auto;
+    padding: 12px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
 }
 
-.progress {
+.progress{
     width: 1150px;
     height: 15px;
-    background-color: #d9d9d9;
-    margin: 40px auto; /* Centers it horizontally */
-    border-radius: 8px;
-    position: absolute;
-    top: 15%;
-    right: 5%;
-    left: 5%;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.heading-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.startPage-heading{
+    text-align: center;
+    font-weight: bold;
+    background: var(--sky-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.button-container{
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
 }
 
 .start-button{
-    padding: 10px 55px;
-    background-color: var(--sky-primary-blue); 
+    padding: 10px 60px;
     color: white;
     border: none;
-    border-radius: 9px;
-    font-size: 1rem;
-    position: absolute;
-    bottom: 10%;
-    right: 16%;
+    border-radius: 10px;
+    background-color: var(--sky-primary-blue);
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    position: absolute; 
+    bottom: 15px; 
+    right: 40px;
+}
+
+:hover.start-button{
+    background-color:red;
 }
