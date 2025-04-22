@@ -1,0 +1,190 @@
+* {
+    font-family: "Roboto", sans-serif;
+}
+
+:root {
+    --coolgray-90: rgba(33, 39, 42, 1);
+    --sky-primary-blue: rgba(0, 15, 245, 1);
+    --form-input-text: rgba(77, 77, 77, 1);
+    --container-outline: rgba(74, 74, 74, 1);
+    --not-applicable: rgba(204, 204, 204, 1);
+    --error: rgba(221, 23, 23, 1);
+    --positive: rgba(0, 126, 19, 1);
+    --dropdown-choice: rgba(0, 0, 0, 1);
+    --dropdown-color-highlight: rgba(229, 229, 229, 1);
+    --amber: rgba(241, 90, 34, 1);
+    --sky-gradient: linear-gradient(
+        to right,
+        rgba(255, 140, 0, 1) 0%,
+        rgba(248, 0, 50, 1) 17%,
+        rgba(255, 0, 160, 1) 35%,
+        rgba(140, 40, 255, 1) 59%,
+        rgba(0, 35, 255, 1) 76%,
+        rgba(25, 160, 255, 1) 100%);
+    --container-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+main {
+    min-height: calc(100vh - 112px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    max-width: 900px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 40px auto;
+}
+
+.loginImage {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.loginImage img {
+    max-width: 90%;
+    height: auto;
+    margin-left: 10px;
+}
+
+.loginForm, .accountForm, .securityForm, .resetForm {
+    flex: 1;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    border-top: none; 
+    border-radius: 8px;
+    box-shadow: var(--container-shadow);
+    height: auto;
+    min-height: fit-content; 
+    margin-right: 200px;
+    max-width: 400px;
+}
+
+.loginTitle, .accountTitle, .securityTitle, .resetTitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    background: linear-gradient(
+        to right,
+        rgba(255, 140, 0, 1) 0%,
+        rgba(248, 0, 50, 1) 17%,
+        rgba(255, 0, 160, 1) 35%,
+        rgba(140, 40, 255, 1) 59%,
+        rgba(0, 35, 255, 1) 76%,
+        rgba(25, 160, 255, 1) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.securityDescription, .resetDescription {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 15px;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.question-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.questionLabel {
+    color: #000ff5;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.passwordLabel {
+    color: #000ff5;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.loginLabel {
+    font-weight: bold;
+}
+
+.formLinks {
+    margin-bottom: 20px;
+}
+
+.formLinks a {
+    text-decoration: none;
+    color: var(--sky-primary-blue);
+}
+
+.loginLink {
+    color: #000ff5;
+}
+
+.createLink {
+    color: #000ff5;
+    font-weight: bold;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.question1, .question2 {
+    color: #000ff5;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.password-field {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    padding: 12px 15px;
+    border: 1px solid #454545;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.forgotPassword {
+    color: var(--sky-primary-blue);
+    text-decoration: none;
+    font-size: 14px;
+    align-self: flex-start;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.loginButton, .continueButton, .signupButton, .resetButton {
+    background-color: var(--sky-primary-blue);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+}
