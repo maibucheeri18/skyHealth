@@ -21,6 +21,7 @@
         rgba(140, 40, 255, 1) 59%,
         rgba(0, 35, 255, 1) 76%,
         rgba(25, 160, 255, 1) 100%);
+    --container-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 main {
@@ -60,12 +61,9 @@ main {
     padding: 50px 40px;
     display: flex;
     flex-direction: column;
-    border-left: 1px solid var(--container-outline);
-    border-right: 1px solid var(--container-outline);
-    border-bottom: 3px solid var(--container-outline);
     border-top: none; 
     border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--container-shadow);
     height: auto;
     min-height: fit-content; 
     margin-right: 200px;
@@ -103,49 +101,10 @@ main {
     color: var(--sky-primary-blue);
 }
 
-.errorMessage {
-    background-color: #fff4f4;
-    border: 1px solid #ffcaca;
-    color: var(--error);
-    padding: 8px 12px;
-    border-radius: 4px;
-    margin-bottom: 15px;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-}
-
-.errorIcon {
-    margin-right: 8px;
-    font-size: 16px;
-}
-
-.inputField {
-    margin-bottom: 15px;
-    position: relative;
-}
-
-.inputField.hasError input {
-    border-color: var(--error);
-}
-
-.fieldError {
-    color: var(--error);
-    font-size: 13px;
-    margin-top: 5px;
-    display: flex;
-    align-items: center;
-}
-
-.errorDot {
-    color: var(--error);
-    font-size: 10px;
-    margin-right: 6px;
-}
-
 form {
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 
 input[type="text"],
