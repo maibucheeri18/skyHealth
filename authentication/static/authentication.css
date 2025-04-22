@@ -82,16 +82,15 @@ main {
 
 .securityDescription, .resetDescription {
     color: black;
-    margin-bottom: 25px;
     font-size: 15px;
     line-height: 1.4;
     text-align: center;
 }
 
-.question-field {
+.login-field, .question-field, .account-field, .password-field {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .questionLabel {
@@ -138,11 +137,6 @@ form {
     color: #000ff5;
     font-weight: bold;
     margin-bottom: 5px;
-}
-
-.password-field {
-    display: flex;
-    flex-direction: column;
 }
 
 input[type="text"],
