@@ -72,9 +72,7 @@ main {
 }
 
 .formLinks {
-    display: flex;
     margin-bottom: 20px;
-    justify-content: center;
 }
 
 .formLinks a {
@@ -101,7 +99,7 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
     padding: 12px 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #454545;
     border-radius: 4px;
     font-size: 14px;
     width: 100%;
