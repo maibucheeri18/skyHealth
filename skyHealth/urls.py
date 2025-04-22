@@ -20,5 +20,7 @@ from healthCheck import views as formsViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('healthCheck/startPage', formsViews.startPage)
+    path('healthCheck/startPage', formsViews.startPage),
+    path('healthCheck/healthcheckForm', formsViews.healthcheckForm),
+    path('healthCheck/closingPage', formsViews.closingPage)
 ]
