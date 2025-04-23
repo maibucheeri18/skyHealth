@@ -33,6 +33,10 @@ main {
     overflow: hidden;
 } 
 
+/* styles the box shadow around the container. used in following pages:
+   - startPage
+   - healthcheckForm
+   - closingPage       */
 .form-container{
     width: 1300px !important;
     height: 700px;
@@ -43,6 +47,10 @@ main {
     flex-direction: column;
 }
 
+/* defines the positioning and the dimensions of the progress bar. used in following pages: 
+   - startPage
+   - healthcheckForm
+   - closingPage       */
 .progress{
     width: 1225px !important;
     height: 15px;
@@ -51,27 +59,32 @@ main {
     margin-top: 20px;
 }
 
+
 .progress-fill{
     height: 100%;;
     transition: width 0.4s ease-in-out;
 }
 
+/* defines how much the progress bar should be filled in the startPage */
 .start-fill{
     width: 0%;
 }
 
+/* defines how much the progress bar should be filled in the closingPage */
 .closing-fill{
     width: 100%;
     background: var(--sky-gradient);
 }
 
+/* positioning of the heading in the startPage */
 .start-heading-container {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
+ 
+/* positioning of the heading in the closingPage */
 .closing-heading-container {
     flex: 1;
     display: flex;
@@ -79,7 +92,8 @@ main {
     align-items: center;
     margin-top: 250px;
 }
-  
+
+/* styling of the heading in both the startPage and the closingPage */
 .page-heading{
     text-align: center;
     font-weight: bold;
@@ -89,6 +103,7 @@ main {
     color: transparent;
 }
 
+/* positioning of the button in the startPage */
 .start-button-container{
     margin-top: auto;
     display: flex;
@@ -96,6 +111,7 @@ main {
     position: relative;
 }
 
+/* positioning of the button in the closingPage */
 .closing-button-container{
     margin-top: auto;
     display: flex;
@@ -104,6 +120,7 @@ main {
     margin-bottom: 240px;
 }
 
+/* styling of the start page button */
 .start-button{
     padding: 10px 0px;
     width: 180px;
@@ -120,7 +137,7 @@ main {
     text-align: center;
 }
 
-
+/* positions the arrow in the start page button */
 .start-button .arrow-right {
     position: absolute;
     right: 15px;
@@ -128,6 +145,7 @@ main {
     transform: translateY(-50%);
 }
 
+/* styling for the results and log off button in the closingPage */
 .results-button, .logOff-button{
     width: 180px;
     padding: 10px 0px;
@@ -137,12 +155,14 @@ main {
     text-align: center;
 }
 
+/* styling for results button in the closingPage */
 .results-button{
     color: white;
     background-color: var(--sky-primary-blue);
     border: none;
 }
 
+/* styling for log off button in the closingPage */
 .logOff-button{
     color: var(--sky-primary-blue);
     border: 2px solid var(--sky-primary-blue);
@@ -150,6 +170,7 @@ main {
 
 }
 
+/* hover effect on buttons */
 :hover.start-button{
     background-color:red;
 }
