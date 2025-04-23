@@ -2,7 +2,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     //initialize all dropdowns
     const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-
     // add event listeners to all dropdown toggles
     dropdownToggles.forEach(toggle => {
         toggle.addEventListener('click', function(e) {
@@ -21,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 //rest arrow icon for other toggles
                 const otherArrow = otherToggle.querySelector('.arrow-down');
                 if(otherArrow) {
-                    otherArrow.innerHTML = '<i class="fa-solid fa-angle-down></i>';
+                    otherArrow.innerHTML = '<i class="fa-solid fa-angle-down"></i>';
                 }
             }
         });
@@ -77,15 +76,22 @@ document.addEventListener('DOMContentLoaded', function() {
             dropdownToggle.setAttribute('data-original-text', originalText);
         }
 
+        console.log(dropdownToggle);
+
         const checkedItems = dropdownMenu.querySelectorAll('input[type="checkbox"]:checked');
 
+        const dropdownText = dropdownToggle.querySelector("span.dropdown-text");
+
         if(checkedItems.length === 0) {
-            dropdownToggle.innerHTML = originalText + ' <span class="arrow-down"><i class="fa-solid fa-angle-down"></i></span>';
-        } else if(checkedItems.length === 1) {
+            dropdownText.innerHTML = originalText;
+        } else if (checkedItems[0].value == "all"){
             const selectedLabel = checkedItems[0].parentElement.textContent.trim();
-            dropdownToggle.innerHTML = selectedLabel + ' <span class="arrow-down"><i class="fa-solid fa-angle-down"></i></span>';
+            dropdownText.innerHTML = selectedLabel;
+        } else if(checkedItems.length === 1) {
+            var selectedLabel = checkedItems[0].parentElement.textContent.trim();
+            dropdownText.innerHTML = selectedLabel;
         } else {
-            dropdownToggle.innerHTML = checkedItems.length + ' <span class="arrow-down"><i class="fa-solid fa-angle-down"></i></span>';
+            dropdownText.innerHTML = checkedItems.length + " selected";
         }
     }
 
@@ -103,15 +109,18 @@ document.addEventListener('DOMContentLoaded', function() {
             individualCheckboxes.forEach(cb => {
                 cb.checked = false;
             });
-        } else if(individualCheckboxes.includes(checkbox) && checkbox.checked) {
+        } 
+        else if(individualCheckboxes.includes(checkbox) && checkbox.checked) {
             if(allCheckbox) allCheckbox.checked = false;
         }
+
     }
 
     //prevent dropdown menu clicks from closing the dropdown
     document.querySelectorAll('.dropdown-menu').forEach(menu => {
         menu.addEventListener('click', function(e) {
             e.stopPropagation();
+            console.log("click");
         });
     });
 
