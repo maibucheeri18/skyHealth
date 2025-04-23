@@ -5,10 +5,12 @@
 :root {
     --coolgray-90: rgba(33, 39, 42, 1);
     --sky-primary-blue: rgba(0, 15, 245, 1);
+    --sky-primary-blue-hover: #000CC4;
     --form-input-text: rgba(77, 77, 77, 1);
     --container-outline: rgba(74, 74, 74, 1);
     --not-applicable: rgba(204, 204, 204, 1);
     --error: rgba(221, 23, 23, 1);
+    --error-hover: #B11212;
     --positive: rgba(0, 126, 19, 1);
     --dropdown-choice: rgba(0, 0, 0, 1);
     --dropdown-color-highlight: rgba(229, 229, 229, 1);
@@ -49,7 +51,7 @@ main {
     align-items: center;
 }
 
-.engineer-leader-filters, .leader-manager-filters {
+.user-filters {
     display: flex;
     flex-grow: 1;
 }
@@ -148,6 +150,16 @@ dropdown-item input[type="checkbox"]:checked {
     gap: 6px;
 }
 
+.btn-primary {
+    background-color: var(--sky-primary-blue) !important;
+    border: none !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--sky-primary-blue-hover) !important;
+    border: none !important;
+}
+
 .search-btn {
     background-color: var(--sky-primary-blue);
     color: white;
@@ -161,10 +173,22 @@ dropdown-item input[type="checkbox"]:checked {
     cursor: pointer;
 }
 
+
+.btn-danger {
+    background-color: var(--error) !important;
+    border: none !important;
+}
+
+.btn-danger:hover {
+    background-color: var(--error-hover) !important;
+    border: none !important;
+}
+
 .clear-btn {
     background-color: var(--error);
     color: white;
     border: none;
+    border-radius: 5px;
     width: 46px;
     height: 46px;
     display: flex;
