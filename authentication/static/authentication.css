@@ -5,10 +5,12 @@
 :root {
     --coolgray-90: rgba(33, 39, 42, 1);
     --sky-primary-blue: rgba(0, 15, 245, 1);
+    --sky-primary-blue-hover: #000CC4;
     --form-input-text: rgba(77, 77, 77, 1);
     --container-outline: rgba(74, 74, 74, 1);
     --not-applicable: rgba(204, 204, 204, 1);
     --error: rgba(221, 23, 23, 1);
+    --error-hover: #B11212;
     --positive: rgba(0, 126, 19, 1);
     --dropdown-choice: rgba(0, 0, 0, 1);
     --dropdown-color-highlight: rgba(229, 229, 229, 1);
@@ -36,7 +38,7 @@ main {
 .container {
     display: flex;
     max-width: 1200px;
-    background-color: #fff;
+    background-color: white;
     justify-content: center;
     align-content: center;
 }
@@ -94,13 +96,13 @@ main {
 }
 
 .questionLabel {
-    color: #000ff5;
+    color: var(--sky-primary-blue);
     font-weight: bold;
     margin-bottom: 5px;
 }
 
 .passwordLabel {
-    color: #000ff5;
+    color: var(--sky-primary-blue);
     font-weight: bold;
     margin-bottom: 5px;
     display: block;
@@ -124,7 +126,7 @@ main {
 }
 
 .createLink {
-    color: #000ff5;
+    color: var(--sky-primary-blue);
     font-weight: bold;
 }
 
@@ -134,7 +136,7 @@ form {
 }
 
 .question1, .question2 {
-    color: #000ff5;
+    color: var(--sky-primary-blue);
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -143,10 +145,17 @@ input[type="text"],
 input[type="password"],
 input[type="email"] {
     padding: 12px 15px;
-    border: 1px solid #454545;
+    border: 1px solid var(--container-outline);
     border-radius: 5px;
     font-size: 14px;
     width: 100%;
+}
+
+input[type="text"]:focus, 
+input[type="password"]:focus,
+input[type="email"]:focus {
+    border: 2px solid var(--sky-primary-blue);
+    outline: none;
 }
 
 .forgotPassword {
@@ -171,4 +180,8 @@ input[type="email"] {
     justify-content: center;
     align-items: center;
     height: 48px;
+}
+
+.loginButton:hover, .continueButton:hover, .signupButton:hover, .resetButton:hover {
+    background-color: var(--sky-primary-blue-hover);
 }
