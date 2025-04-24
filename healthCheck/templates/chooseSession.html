@@ -9,6 +9,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- webpage CSS -->
     <link href="{% static 'healthcheck.css'%}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 <body>
     <header>
@@ -18,8 +21,35 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="form-container">
-                
+                <div class="container">
+                    
+                    <div class="descrip-container">
+                        <div class="chooseSession-descrip">
+                            <h1 class="session-heading">Welcome to your Sky Health Check!</h1>
+                            <p class="session-descrip">
+                                Help us improve by sharing your insights on our recent performance and overall experience.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="dropdown-container">
+                        <h2 class="dropdown-title">Choose your session</h2>
+                        <div class="chooseSession-dropdown">
+                            <select id="sessionSelect" class="chooseSession-select">
+                                <option selected disabled>Select session</option>
+                                <option value="session1">Session 1: 09:00AM</option>
+                                <option value="session2">Session 2: 10:00AM</option>
+                                <option value="session3">Session 3: 11:00AM</option>
+                                <option value="session4">Session 4: 12:00PM</option>
+                            </select>
+                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
+                        </div>
+
+                        <div class="continue-button-container">
+                            <button class="continue-button">Continue</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -30,3 +60,4 @@
     </footer>
 </body>
 </html>
+
