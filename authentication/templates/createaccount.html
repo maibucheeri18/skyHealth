@@ -25,24 +25,36 @@
                     Create your Sky Health account
                 </h1>
                 <div class="formLinks">
-                    <a href="" class="loginLink">Login |</a>
-                    <a href="" class="createLink">Create an account</a>
+                    <a href="{% url 'login' %}" class="loginLink">Login |</a>
+                    <a href="{% url 'create_account' %}" class="createLink">Create an account</a>
                 </div>
-                <form>
+                
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <form method="POST">
+                    {% csrf_token %}
                     <div class="account-field">
-                        <input type="text" placeholder="First name">
+                        {{ form.first_name }}
                     </div>
                     <div class="account-field">
-                        <input type="text" placeholder="Last name">
+                        {{ form.last_name }}
                     </div>
                     <div class="account-field">
-                        <input type="email" placeholder="Email">
+                        {{ form.email }}
                     </div>
                     <div class="account-field">
-                        <input type="text" placeholder="Username">
+                        {{ form.username }}
                     </div>
                     <div class="account-field">
-                        <input type="password" placeholder="Create your password">
+                        {{ form.password }}
                     </div>
                     <button type="submit" class="continueButton">Continue</button>
                 </form>
