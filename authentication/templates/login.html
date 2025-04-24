@@ -25,18 +25,30 @@
                     Login to your account
                 </h1>
                 <div class="formLinks">
-                    <a href="" class="loginLabel">Login   |</a> 
-                    <a href="">Create an account</a>
+                    <a href="{% url 'login' %}" class="loginLabel">Login   |</a> 
+                    <a href="{% url 'create_account' %}">Create an account</a>
                 </div>
-                <form>
+                
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <form method="POST">
+                    {% csrf_token %}
                     <div class="login-field">
-                        <input type="text" placeholder="Username or email">
+                        {{ form.username }}
                     </div>
                     <div class="login-field">
-                        <input type="password" placeholder="Password">
+                        {{ form.password }}
                     </div>
                     <div class="login-field">
-                        <a href="" class="forgotPassword">Forgotten Password?</a>
+                        <a href="{% url 'reset_password' %}" class="forgotPassword">Forgotten Password?</a>
                     </div>
                     <button type="submit" class="loginButton">Login</button>
                 </form>
