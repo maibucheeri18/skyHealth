@@ -182,3 +182,144 @@ main {
 :hover.logOff-button{
     background-color:red;
 }
+
+/* chooseSession and chooseTeam styling  */
+
+.container {
+    display: flex;
+    max-width: 1200px;
+    background-color: #fff;
+    justify-content: center;
+    align-content: center;
+    gap: 40px;
+}
+
+.descrip-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    max-width: 600px;
+}
+
+.continue-button{
+    background-color: var(--sky-primary-blue);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+}
+
+.chooseSession-descrip{
+    max-width: 500px;
+}
+
+.session-heading{
+    font-size: 35px;
+    text-align: column;
+    margin-bottom: 20px;
+    font-weight: 600;
+    background: var(--sky-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.session-descrip{
+    font-size: 16px;
+    color: var(--coolgray-90);
+    line-height: 1.5;
+}
+
+.dropdown-container {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: var(--container-shadow);
+    height: 250px;
+    min-height: fit-content; 
+    margin-right: 140px;
+    max-width: 400px;
+}
+
+.dropdown-title{
+    color: var(--sky-primary-blue);
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.chooseSession-dropdown{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.dropdown-toggle{
+    width: 100%;
+    padding: 10px 12px;
+    text-align: left;
+    background-color: white;
+    border: 1px solid var(—container-outline);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(—form-input-text);
+    display: flex;
+    justify-content:(space-between);
+    align-items: centre;
+}
+
+.chooseSession-select{
+    width: 100%;
+    padding: 10px 12px;
+    text-align: left;
+    background-color: white;
+    border: 1px solid var(--container-outline);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--form-input-text);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    appearance: none;
+}
+
+.dropdown-menu{
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    width: 100%;
+}
+
+
+.arrow-down {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* prevents clicking the icon */
+    color: var(--form-input-text);
+}
+
+/*        HEALTHCHECK FORM       */
+.form-image img{
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
