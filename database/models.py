@@ -79,8 +79,8 @@ class Team(models.Model):
 class HealthCheckCard(models.Model):
     cardId = models.AutoField(primary_key=True)
     cardName = models.CharField(max_length=50)
-    redColorDescrip = models.CharField(max_length=300) # THIS MIGHT CHANGE BECAUSE A 100 IS TOO LIMITED FOR DESCRIP
-    greenColorDescrip = models.CharField(max_length=300)
+    redColorDescrip = models.CharField(max_length=255) # THIS MIGHT CHANGE BECAUSE A 100 IS TOO LIMITED FOR DESCRIP
+    greenColorDescrip = models.CharField(max_length=255)
 
     class Meta:
         db_table = 'HealthCheck_Card' 
@@ -91,7 +91,7 @@ class ResultView(models.Model):
     averageProgressScore = models.IntegerField()
     progressOverTime = models.IntegerField() 
     cardProgressSummary = models.CharField(max_length=500)
-    teamProgressSummary = models.CharField(max_lenth=500)
+    teamProgressSummary = models.CharField(max_length=500)
     deptProgressSummary = models.CharField(max_length=500)
 
     class Meta:
@@ -103,7 +103,8 @@ class HealthCheckResult(models.Model):
 
     class Meta: 
         db_table = 'HealthCheck_Result' 
-        unique_together = (('card', 'results'),)
+        unique_together = (('card', 'result'))
+
 
 class Session(models.Model):
     sessionId = models.AutoField(primary_key=True)
