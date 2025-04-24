@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'healthCheck',
     'myAccount',
     'results',
+    'database',
 ]
 
 MIDDLEWARE = [
