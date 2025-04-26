@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <script src="{%static 'healthCheck.js'}"></script>
 </head>
 <body>
     <header>
@@ -23,11 +24,13 @@
             <div class="row">
                 <div class="container">
                     
-                    <div class="descrip-container">
-                        <div class="chooseSession-descrip">
-                            <h1 class="session-heading">Welcome to your Sky Health Check!</h1>
-                            <p class="session-descrip">
-                                Help us improve by sharing your insights on our recent performance and overall experience.
+                    <div>
+                        <div class="choose-heading">
+                            <h1 class="choose-title">
+                                Welcome to your Sky Health<br>Check!
+                            </h1>
+                            <p class="choose-description"> 
+                                Help us improve by sharing your insights on our recent performance <br> and overall experience.
                             </p>
                         </div>
                     </div>
@@ -35,21 +38,19 @@
                     <div class="dropdown-container">
                         <h2 class="dropdown-title">Choose your session</h2>
                         <div class="chooseSession-dropdown">
-                            <select id="sessionSelect" class="chooseSession-select">
-                                <option selected disabled>Select session</option>
-                                <option value="session1">Session 1: 09:00AM</option>
-                                <option value="session2">Session 2: 10:00AM</option>
-                                <option value="session3">Session 3: 11:00AM</option>
-                                <option value="session4">Session 4: 12:00PM</option>
+                            <select id="session-select" class="chooseSession-select">
+                                <option selected disabled>
+                                    Select session
+                                </option>
+                                {% for session in sessions %}
+                                    <option value="{{session.sessionId}}">{{session.sessionDate}}</option>
+                                {% endfor %}
                             </select>
-                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
                         </div>
 
-                        <div class="continue-button-container">
-                            <button class="continue-button">Continue</button>
-                        </div>
+                        <div class="error-message" id="session-error-message">Please choose a session before continuing</div>
+                        <button class="chooseSession-button" id="CS-continue-button">Continue</button>
                     </div>
-
                 </div>
             </div>
         </div>
