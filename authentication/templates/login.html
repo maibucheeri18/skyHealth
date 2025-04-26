@@ -39,7 +39,7 @@
                 </div>
                 {% endif %}
                 
-                <form method="POST">
+                <form method="post">
                     {% csrf_token %}
                     <div class="login-field">
                         {{ form.username }}
@@ -48,7 +48,7 @@
                         {{ form.password }}
                     </div>
                     <div class="login-field">
-                        <a href="{% url 'reset_password' %}" class="forgotPassword">Forgotten Password?</a>
+                        <a href="{% url 'security_questions' %}" class="forgotPassword">Forgotten Password?</a>
                     </div>
                     <button type="submit" class="loginButton">Login</button>
                 </form>
