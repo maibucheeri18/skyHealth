@@ -20,9 +20,10 @@ from authentication import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', auth_views.login, name='login'),
+    path('login/', auth_views.login_view, name='login'),
     path('securityquestions/', auth_views.security_questions, name='security_questions'),
     path('resetpassword/', auth_views.reset_password, name='reset_password'),
     path('createaccount/', auth_views.create_account, name='create_account'),
-    path('securityquestions2/', auth_views.security_questions2, name='security_questions2')
+    path('securityquestions2/', auth_views.security_questions2, name='security_questions2'),
+    path('dashboard/', auth_views.dashboard, name='dashboard')
 ]
