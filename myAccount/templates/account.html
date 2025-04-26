@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account</title>
+    <link rel="stylesheet" href="{% static 'account.css' %}">
+</head>
+
+<body>
+    <header>
+        {% include 'navbar.html' %}
+    </header>
+
+    <div class="profile-picture-container text-center mb-4">
+        <div class="avatar-container mx-auto">
+            <img src="{% static 'images/profile-placeholder.png' %}" alt="Profile" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'%3E%3Ccircle cx=\'75\' cy=\'55\' r=\'30\' fill=\'white\'/%3E%3Ccircle cx=\'75\' cy=\'140\' r=\'55\' fill=\'white\'/%3E%3C/svg%3E'">
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-7 col-xl-6">
+                <div id="form-outer-container" class="card">
+                    <div class="card-body p-4">
+                        <h4 class="text-center mb-4">Account Details</h4>
+                        <form id="user-form">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="first_name" class="form-label small text-muted">First name</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}" readonly>
+                                <div class="invalid-feedback" id="first_name_error"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="last_name" class="form-label small text-muted">Last name</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}" readonly>
+                                <div class="invalid-feedback" id="last_name_error"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label small text-muted">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" readonly>
+                                <div class="invalid-feedback" id="email_error"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="username" class="form-label small text-muted">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" readonly>
+                                <div class="invalid-feedback" id="username_error"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label small text-muted">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" value="••••••••••••" readonly>
+                                <div class="invalid-feedback" id="password_error"></div>
+                            </div>
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="button" id="action-button" class="btn btn-primary py-2">Edit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-5">
+        {% include 'footer.html' %}
+    </footer>
+
+    <script src="{% static 'account.js' %}"></script>
+</body>
+</html>
