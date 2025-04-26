@@ -27,14 +27,15 @@
                 <p class="securityDescription">
                     If you forget your password, you will be prompted to answer security questions to verify your identity and reset it.
                 </p>
-                <form>
+                <form method="POST">
+                    {% csrf_token %}
                     <div class="question-field">
                         <label for="city" class="questionLabel">What is the name of the city you were born in?</label>
-                        <input type="text" id="city" placeholder="City">
+                        <input type="text" id="city" name="city" placeholder="City">
                     </div>
                     <div class="question-field">
                         <label for="company" class="questionLabel">What is the name of the first company you worked for?</label>
-                        <input type="text" id="company" placeholder="First job company">
+                        <input type="text" id="company" name="company" placeholder="First job company">
                     </div>
                     <button type="submit" class="signupButton">Sign Up</button>
                 </form>
