@@ -5,10 +5,12 @@
 :root {
     --coolgray-90: rgba(33, 39, 42, 1);
     --sky-primary-blue: rgba(0, 15, 245, 1);
+    --sky-primary-blue-hover: #000CC4;
     --form-input-text: rgba(77, 77, 77, 1);
     --container-outline: rgba(74, 74, 74, 1);
     --not-applicable: rgba(204, 204, 204, 1);
     --error: rgba(221, 23, 23, 1);
+    --error-hover: #B11212;
     --positive: rgba(0, 126, 19, 1);
     --dropdown-choice: rgba(0, 0, 0, 1);
     --dropdown-color-highlight: rgba(229, 229, 229, 1);
@@ -171,39 +173,78 @@ main {
 }
 
 /* hover effect on buttons */
-:hover.start-button{
-    background-color:red;
+.start-button:hover{
+    background-color:var(--sky-primary-blue-hover);
 }
 
-:hover.results-button{
-    background-color:red;
+.results-button:hover{
+    background-color:var(--sky-primary-blue-hover);
 }
 
-:hover.logOff-button{
-    background-color:red;
+.logOff-button:hover{
+    background-color:var(--sky-primary-blue-hover);
 }
 
-/* chooseSession and chooseTeam styling  */
-
+/* chooseSession styling  */
 .container {
     display: flex;
     max-width: 1200px;
     background-color: #fff;
     justify-content: center;
     align-content: center;
-    gap: 40px;
 }
 
-.descrip-container {
-    flex: 1;
+.choose-heading {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    max-width: 600px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px;
+    margin-right: 30px;
+    margin-top: 18px;
 }
 
-.continue-button{
+.choose-description {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--coolgray-90);
+    margin: 0; 
+    text-align: left; 
+}
+
+.dropdown-container {
+    flex: 1;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: var(--container-shadow);
+    height: 300px;
+    min-height: fit-content; 
+    margin-left: 50px;
+    max-width: 500px;
+    margin-right: 70px;
+}
+
+.dropdown-title{
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--sky-primary-blue);
+    margin-bottom: 20px;
+}
+
+.choose-title{
+    font-size: 42px;
+    margin-left: 0px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    background: var(--sky-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-align: left;
+}
+
+.chooseSession-button{
     background-color: var(--sky-primary-blue);
     color: white;
     padding: 12px;
@@ -211,79 +252,23 @@ main {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 48px;
+    height: 60px;
 }
 
-.chooseSession-descrip{
-    max-width: 500px;
-}
-
-.session-heading{
-    font-size: 35px;
-    text-align: column;
-    margin-bottom: 20px;
-    font-weight: 600;
-    background: var(--sky-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    display: inline-block;
-}
-
-.session-descrip{
-    font-size: 16px;
-    color: var(--coolgray-90);
-    line-height: 1.5;
-}
-
-.dropdown-container {
-    flex: 1;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    box-shadow: var(--container-shadow);
-    height: 250px;
-    min-height: fit-content; 
-    margin-right: 140px;
-    max-width: 400px;
-}
-
-.dropdown-title{
-    color: var(--sky-primary-blue);
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
-
-.chooseSession-dropdown{
+.chooseSession-dropdown {
     display: flex;
     flex-direction: column;
     gap: 8px;
     margin-bottom: 25px;
 }
 
-.dropdown-toggle{
-    width: 100%;
-    padding: 10px 12px;
-    text-align: left;
-    background-color: white;
-    border: 1px solid var(—container-outline);
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    color: var(—form-input-text);
-    display: flex;
-    justify-content:(space-between);
-    align-items: centre;
-}
-
-.chooseSession-select{
+/* Adjust dropdown styles for visibility */
+.chooseSession-select {
     width: 100%;
     padding: 10px 12px;
     text-align: left;
@@ -297,29 +282,53 @@ main {
     justify-content: space-between;
     align-items: center;
     appearance: none;
+    height: 60px;
 }
 
-.dropdown-menu{
-    position: absolute;
-    top: 100%;
-    left: 0%;
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 8px;
+    display: none; 
+}
+
+.chooseTeam-button{
+    background-color: var(--sky-primary-blue);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
 }
 
+.chooseTeam-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 25px;
+}
 
-.arrow-down {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none; /* prevents clicking the icon */
+/* Adjust dropdown styles for visibility */
+.chooseTeam-select {
+    width: 100%;
+    padding: 10px 12px;
+    text-align: left;
+    background-color: white;
+    border: 1px solid var(--container-outline);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
     color: var(--form-input-text);
-}
-
-/*        HEALTHCHECK FORM       */
-.form-image img{
-    max-width: 300px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    appearance: none;
+    height: 60px;
 }
