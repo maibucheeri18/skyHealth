@@ -1,0 +1,54 @@
+.avatar-container {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #0047FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.avatar-container img {
+    width: 100%;
+    height: auto;
+}
+
+.form-control {
+    padding: 0.6rem 0.75rem;
+    border-radius: 4px;
+}
+
+.form-control[readonly] {
+    background-color: #f8f9fa;
+    opacity: 0.8;
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+    background-image: none;
+}
+
+.invalid-feedback {
+    display: block;
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+#action-button {
+    background-color: #0047FF;
+    border-color: #0047FF;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.edit-mode {
+    border: 2px solid #0047FF !important;
+    border-radius: 8px !important;
+}
