@@ -20,9 +20,9 @@ from healthCheck import views as formsViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('healthCheck/chooseSession', formsViews.chooseSession),
-    path('healthCheck/chooseTeam', formsViews.chooseTeam),
-    path('healthCheck/startPage', formsViews.startPage),
-    path('healthCheck/healthcheckForm', formsViews.healthcheckForm),
-    path('healthCheck/closingPage', formsViews.closingPage)
+    path('healthCheck/chooseSession/', formsViews.chooseSession),
+    path('healthCheck/chooseTeam/', formsViews.chooseTeam),
+    path('healthCheck/startPage/', formsViews.startPage),
+    path('healthCheck/healthCheckForm/', formsViews.healthCheckForm),
+    path('healthCheck/closingPage/', formsViews.closingPage)
 ]
