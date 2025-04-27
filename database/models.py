@@ -37,10 +37,14 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'fName', 'lName']
 
+    def __str__(self):
+        return f"{self.fName} {self.lName}"
+
     class Meta:
         abstract = True # this means its an abstract class and should not be used directly
 
 class Engineer(User):
+    team = models.ForeignKey('Team', on_delete=models.SET_NULL, null=True, related_name='engineers')
     class Meta:
         db_table = 'Engineer' # creates the table name
 
@@ -62,8 +66,11 @@ class Department(models.Model):
     numOfTeams = models.IntegerField()
     deptCreateDate = models.DateField()
     departmentLocation = models.CharField(max_length=50)
-    user = models.ForeignKey(DepartmentLeader, on_delete=models.CASCADE, null=True, blank=True)
+    leader = models.OneToOneField(DepartmentLeader, on_delete=models.SET_NULL, null=True, related_name='led_department')
 
+    def __str__(self):
+        return self.departmentName
+    
     class Meta:
         db_table = 'Department' 
 
@@ -71,8 +78,12 @@ class Team(models.Model):
     teamId = models.AutoField(primary_key=True)
     teamName = models.CharField(max_length=20, unique=True)
     numOfMembers = models.IntegerField()
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='teams')
+    leader = models.OneToOneField(TeamLeader, on_delete=models.SET_NULL, null=True, related_name='led_team')
 
+    def __str__(self):
+        return self.teamName
+    
     class Meta:
         db_table = 'Team'
 
