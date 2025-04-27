@@ -26,7 +26,7 @@
                     <div class="search-container">
                         <div class="search-filters">
                             <!-- search filters based on the user role = engineer -->
-                            <div class="user-filters"  style="display: none;">
+                            <div class="user-filters"  {% if not show_engineer_filters %}style="display: none;"{% endif %}>
                                 <!-- type filter -->
                                 <div class="filter-item">
                                     <div class="dropdown-container">
@@ -148,7 +148,7 @@
                             </div>
 
                             <!-- search filters based on the user role = team leader -->
-                            <div class="user-filters" style="display: none;" >
+                            <div class="user-filters" {% if not show_team_leader_filters %}style="display: none;"{% endif%}>
                                 <!-- type filter -->
                                 <div class="filter-item">
                                     <div class="dropdown-container">
@@ -290,7 +290,7 @@
                             </div>
 
                             <!-- search filters based on the user role = department leader -->
-                            <div class="user-filters"  >
+                            <div class="user-filters" {% if not show_department_leader_filters %}style="display: none;"{% endif %}>
                                 <!-- department filter -->
                                 <div class="filter-item">
                                     <div class="dropdown-container">
@@ -463,7 +463,7 @@
                             </div>
 
                             <!-- search filters based on the user role = senior manager -->
-                            <div class="user-filters" style="display: none;">
+                            <div class="user-filters" {% if not show_senior_manager_filters %}style="display: none;"{% endif %}>
                                 <!-- department filter -->
                                 <div class="filter-item">
                                     <div class="dropdown-container">
