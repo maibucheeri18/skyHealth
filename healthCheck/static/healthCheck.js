@@ -1,6 +1,6 @@
 //chooseSession JS
 document.addEventListener('DOMContentLoaded', function(){
-    const continueButton = document.getElementById('CS-continue-button');
+    const sessionButton = document.getElementById('CS-continue-button');
     const sessionSelect = document.getElementById('session-select');
     const sessionError = document.getElementById('session-error-message');
 
@@ -35,6 +35,18 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     }
 
+    if (sessionButton) {
+        sessionButton.addEventListener('click', function(){
+            window.location.href = '/healthCheck/chooseTeam/';
+        });
+    }
+
+    if (teamButton) {
+        teamButton.addEventListener('click', function(){
+            window.location.href = '/healthCheck/startPage/';
+        });
+    }
+
     const startButton = document.getElementById('start-button');
 
     if (startButton) {
@@ -42,5 +54,4 @@ document.addEventListener('DOMContentLoaded', function(){
             window.location.href = '/healthCheck/healthCheckForm/';
         });
     }
-
 });
