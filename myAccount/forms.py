@@ -1,66 +1,69 @@
-# forms.py
 from django import forms
-from django.contrib.auth.password_validation import validate_password
-from database.models import Engineer, TeamLeader, DepartmentLeader, SeniorManager
+from django.contrib.auth.models import User
+import re
 
-class UserProfileForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput(), required=False)
-    
+class AccountForm(forms.ModelForm):
+    # Override the fields to customize the form
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': ''})
+    )
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': ''})
+    )
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'placeholder': ''})
+    )
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': ''})
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': ''})
+    )
+
     class Meta:
-        # We'll use fields common to all user types
-        fields = ['fName', 'lName', 'email', 'username', 'password']
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # Rename fields to match your HTML template
-        self.fields['fName'].label = 'First name'
-        self.fields['lName'].label = 'Last name'
-    
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        # Check if username changed and if new username already exists
-        if username != self.instance.username:
-            # Check across all user types
-            if (Engineer.objects.filter(username=username).exists() or
-                TeamLeader.objects.filter(username=username).exists() or
-                DepartmentLeader.objects.filter(username=username).exists() or
-                SeniorManager.objects.filter(username=username).exists()):
-                raise forms.ValidationError("The username has already been taken.")
-        return username
-    
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'username', 'password']
+
+    def clean_first_name(self):
+        first_name = self.cleaned_data.get('first_name')
+        if not first_name:
+            raise forms.ValidationError
+        return first_name
+
+    def clean_last_name(self):
+        last_name = self.cleaned_data.get('last_name')
+        if not last_name:
+            raise forms.ValidationError
+        return last_name
+
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if not email:
-            raise forms.ValidationError("Email is required")
-        
-        # Check if email changed and if new email already exists
-        if email != self.instance.email:
-            if (Engineer.objects.filter(email=email).exists() or
-                TeamLeader.objects.filter(email=email).exists() or
-                DepartmentLeader.objects.filter(email=email).exists() or
-                SeniorManager.objects.filter(email=email).exists()):
-                raise forms.ValidationError("This email is already in use.")
+            raise forms.ValidationError
+        elif not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            raise forms.ValidationError 
         return email
-        
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if not username:
+            raise forms.ValidationError
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError
+        return username
+
     def clean_password(self):
         password = self.cleaned_data.get('password')
-        if password:
-            validate_password(password, self.instance)
+        if not password:
+            raise forms.ValidationError
+        if len(password) < 8:
+            raise forms.ValidationError
+        if not re.search(r'[a-z]', password):
+            raise forms.ValidationError
+        if not re.search(r'[A-Z]', password):
+            raise forms.ValidationError
+        if not re.search(r'[0-9]', password):
+            raise forms.ValidationError
+        if not re.search(r'[\W_]', password):
+            raise forms.ValidationError
         return password
-
-# Create specific forms for each user type if needed
-class EngineerProfileForm(UserProfileForm):
-    class Meta(UserProfileForm.Meta):
-        model = Engineer
-
-class TeamLeaderProfileForm(UserProfileForm):
-    class Meta(UserProfileForm.Meta):
-        model = TeamLeader
-
-class DepartmentLeaderProfileForm(UserProfileForm):
-    class Meta(UserProfileForm.Meta):
-        model = DepartmentLeader
-
-class SeniorManagerProfileForm(UserProfileForm):
-    class Meta(UserProfileForm.Meta):
-        model = SeniorManager
