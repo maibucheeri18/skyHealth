@@ -1,8 +1,11 @@
+# Author: Student_D_Diego_Santos_de_Freitas 
+
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 
+# Form for user login with username/email and password fields
 class LoginForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Username or email'})
@@ -12,6 +15,7 @@ class LoginForm(forms.Form):
     )
 
 
+# Form for creating a new user account with personal information
 class CreateAccountForm(forms.ModelForm):
     first_name = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'First name'})
@@ -33,6 +37,7 @@ class CreateAccountForm(forms.ModelForm):
         model = User
         fields = ('first_name', 'last_name', 'email', 'username', 'password')
 
+    # Override save method to properly handle password hashing
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password"])
@@ -41,6 +46,7 @@ class CreateAccountForm(forms.ModelForm):
         return user
 
 
+# Form for setting security questions during account creation/recovery
 class SetSecurityQuestionsForm(forms.Form):
     city = forms.CharField(
         label="What is the name of the city you were born in?",
@@ -52,6 +58,7 @@ class SetSecurityQuestionsForm(forms.Form):
     )
 
 
+# Form for verifying security questions during password recovery
 class CheckSecurityQuestionsForm(forms.Form):
     city = forms.CharField(
         label="What is the name of the city you were born in?",
@@ -63,6 +70,7 @@ class CheckSecurityQuestionsForm(forms.Form):
     )
 
 
+# Form for resetting password with validation to ensure passwords match
 class ResetPasswordForm(forms.Form):
     new_password = forms.CharField(
         label="Enter new password",
@@ -73,6 +81,7 @@ class ResetPasswordForm(forms.Form):
         widget=forms.PasswordInput(attrs={'placeholder': 'Confirm password'})
     )
 
+    # Custom validation to check if passwords match
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get("new_password")
