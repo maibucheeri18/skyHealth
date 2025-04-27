@@ -40,11 +40,13 @@
                                                     <input type="checkbox" value="individual"> Individual
                                                 </label>
                                             </div>
+                                            {% if user_team %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
-                                                    <input type="checkbox" value="team"> Team
+                                                    <input type="checkbox" value="{{ user_team.teamId }}"> {{ user_team.teamName }}
                                                 </label>
                                             </div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -61,56 +63,13 @@
                                                     <input type="checkbox" value="all"> All Cards
                                                 </label>
                                             </div>
+                                            {% for card in health_check_cards %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
-                                                    <input type="checkbox" value="1"> 1. Teamwork
+                                                    <input type="checkbox" value="{{ card.cardId }}"> {{ card.cardName }}
                                                 </label>
                                             </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="2"> 2. Mission
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="3"> 3. Support
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="4"> 4. Fun
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="5"> 5. Pawn or Players
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="6"> 6. Health of Codebase
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="7"> 7. Speed
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="8"> 8. Learning
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="9"> 9. Work-Life
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="10"> 10. Right Tools for the Job
-                                                </label>
-                                            </div>
+                                            {% endfor %}
                                         </div>   
                                     </div>
                                 </div>
@@ -167,26 +126,13 @@
                                                     <input type="checkbox" value="all"> All Teams
                                                 </label>
                                             </div>
+                                            {% for team in available_teams %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
-                                                    <input type="checkbox" value="1"> Team 1
+                                                    <input type="checkbox" value="{{ team.teamId }}"> {{ team.teamName }}
                                                 </label>
                                             </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="2"> Team 2
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="3"> Team 3
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="4"> Team 4
-                                                </label>
-                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
@@ -203,56 +149,13 @@
                                                     <input type="checkbox" value="all"> All Cards
                                                 </label>
                                             </div>
+                                            {% for card in health_check_cards %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
-                                                    <input type="checkbox" value="1"> 1. Teamwork
+                                                    <input type="checkbox" value="{{ card.cardId }}"> {{ card.cardName }}
                                                 </label>
                                             </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="2"> 2. Mission
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="3"> 3. Support
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="4"> 4. Fun
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="5"> 5. Pawn or Players
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="6"> 6. Health of Codebase
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="7"> 7. Speed
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="8"> 8. Learning
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="9"> 9. Work-Life
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="10"> 10. Right Tools for the Job
-                                                </label>
-                                            </div>
+                                            {% endfor %}
                                         </div>   
                                     </div>
                                 </div>
@@ -304,26 +207,13 @@
                                                     <input type="checkbox" value="all"> All Departments
                                                 </label>
                                             </div>
+                                            {% for department in available_departments %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
-                                                    <input type="checkbox" value="team"> Department 1
+                                                    <input type="checkbox" value="{{ department.departmentId }}"> {{ department.departmentName}}
                                                 </label>
                                             </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="team"> Department 2
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="team"> Department 3
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="team"> Department 4
-                                                </label>
-                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
@@ -340,26 +230,13 @@
                                                     <input type="checkbox" value="all"> All Teams
                                                 </label>
                                             </div>
+                                            {% for team in available_teams %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
-                                                    <input type="checkbox" value="1"> Team 1
+                                                    <input type="checkbox" value="{{ team.teamId }}"> {{ team.teamName }}
                                                 </label>
                                             </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="2"> Team 2
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="3"> Team 3
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="4"> Team 4
-                                                </label>
-                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
@@ -376,56 +253,13 @@
                                                     <input type="checkbox" value="all"> All Cards
                                                 </label>
                                             </div>
+                                            {% for card in health_check_cards %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
-                                                    <input type="checkbox" value="1"> 1. Teamwork
+                                                    <input type="checkbox" value="{{ card.cardId }}"> {{ card.cardName }}
                                                 </label>
                                             </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="2"> 2. Mission
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="3"> 3. Support
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="4"> 4. Fun
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="5"> 5. Pawn or Players
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="6"> 6. Health of Codebase
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="7"> 7. Speed
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="8"> 8. Learning
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="9"> 9. Work-Life
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="10"> 10. Right Tools for the Job
-                                                </label>
-                                            </div>
+                                            {% endfor %}
                                         </div>   
                                     </div>
                                 </div>
@@ -477,26 +311,13 @@
                                                     <input type="checkbox" value="all"> All Departments
                                                 </label>
                                             </div>
+                                            {% for department in available_departments %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
-                                                    <input type="checkbox" value="team"> Department 1
+                                                    <input type="checkbox" value="{{ department.departmentId }}"> {{ department.departmentName }}
                                                 </label>
                                             </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="team"> Department 2
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="team"> Department 3
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="team"> Department 4
-                                                </label>
-                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
@@ -513,26 +334,13 @@
                                                     <input type="checkbox" value="all"> All Teams
                                                 </label>
                                             </div>
+                                            {% for team in available_teams %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
-                                                    <input type="checkbox" value="1"> Team 1
+                                                    <input type="checkbox" value="{{ team.teamId }}"> {{ team.teamName }}
                                                 </label>
                                             </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="2"> Team 2
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="3"> Team 3
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="4"> Team 4
-                                                </label>
-                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
@@ -549,56 +357,13 @@
                                                     <input type="checkbox" value="all"> All Cards
                                                 </label>
                                             </div>
+                                            {% for card in health_check_cards %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
-                                                    <input type="checkbox" value="1"> 1. Teamwork
+                                                    <input type="checkbox" value="{{ card.cardId }}"> {{ card.cardName }}
                                                 </label>
                                             </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="2"> 2. Mission
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="3"> 3. Support
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="4"> 4. Fun
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="5"> 5. Pawn or Players
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="6"> 6. Health of Codebase
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="7"> 7. Speed
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="8"> 8. Learning
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="9"> 9. Work-Life
-                                                </label>
-                                            </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="10"> 10. Right Tools for the Job
-                                                </label>
-                                            </div>
+                                            {% endfor %}
                                         </div>   
                                     </div>
                                 </div>
