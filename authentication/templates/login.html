@@ -47,17 +47,6 @@ Purpose: User authentication page for Sky Health application
                     <a href="{% url 'create_account' %}" class="createLabel">Create an account</a>
                 </div>
                 
-                <!-- System Messages Display -->
-                {% if messages %}
-                <div class="messages">
-                    {% for message in messages %}
-                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-                        {{ message }}  <!-- Displays authentication errors/success messages -->
-                    </div>
-                    {% endfor %}
-                </div>
-                {% endif %}
-                
                 <!-- Login Form -->
                 <form method="post">
                     {% csrf_token %}  <!-- CSRF protection token -->
