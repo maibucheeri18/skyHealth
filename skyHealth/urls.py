@@ -11,11 +11,20 @@ This file defines all the application-level URLs and maps them to their correspo
 
 from django.contrib import admin
 from django.urls import path
+
+from healthCheck import views as formsViews
 from authentication import views as auth_views
+
 
 urlpatterns = [
     # Admin site URL
     path('admin/', admin.site.urls),
+    path('healthCheck/chooseSession/', formsViews.chooseSession, name="chooseSession"),
+    path('healthCheck/chooseTeam/', formsViews.chooseTeam, name="chooseTeam"),
+    path('healthCheck/startPage/', formsViews.startPage, name="startPage"),
+    path('healthCheck/healthCheckForm/', formsViews.healthCheckForm, name="healthCheckForm_default"),
+    path('healthCheck/healthCheckForm/<int:card_index>', formsViews.healthCheckForm, name="healthCheckForm"),
+    path('healthCheck/closingPage/', formsViews.closingPage, name="closingPage")
     
     # Authentication URLs
     path('login/', auth_views.login_view, name='login'),  # User login page
