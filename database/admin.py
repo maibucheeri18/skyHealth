@@ -56,10 +56,10 @@ class DepartmentAdmin(admin.ModelAdmin):
     get_department_leader.short_description = 'Department Leader'
 
 @admin.register(Team)
-class TeamAdming(admin.ModelAdmin):
+class TeamAdmin(admin.ModelAdmin):
     list_display = ('teamName', 'numOfMembers', 'department', 'get_team_leader')
     search_fields = ('teamName',)
-    list_filter = ('department')
+    list_filter = ('department',)
 
     def get_team_leader(self, obj):
         if obj.leader:
