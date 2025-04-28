@@ -32,7 +32,7 @@ urlpatterns = [
     path('healthCheck/startPage/', formsViews.startPage, name="startPage"),
     path('healthCheck/healthCheckForm/', formsViews.healthCheckForm, name="healthCheckForm_default"),
     path('healthCheck/healthCheckForm/<int:card_index>', formsViews.healthCheckForm, name="healthCheckForm"),
-    path('healthCheck/closingPage/', formsViews.closingPage, name="closingPage")
+    path('healthCheck/closingPage/', formsViews.closingPage, name="closingPage"),
     
     # Authentication URLs
     path('login/', auth_views.login_view, name='login'),  # User login page
