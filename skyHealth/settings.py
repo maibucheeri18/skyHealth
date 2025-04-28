@@ -129,3 +129,16 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Authentication settings
+LOGIN_URL = '/login/'  # URL where users will be redirected when login is required
+LOGIN_REDIRECT_URL = '/dashboard/'  # URL to redirect after successful login
+LOGOUT_REDIRECT_URL = '/login/'  # URL to redirect after logout
+
+# Session settings
+SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
+SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
+
+# Email settings for password reset (configure for production)
+# For development, emails will be printed to console
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
