@@ -12,7 +12,6 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <script src="{%static 'healthCheck.js' %}"></script>
 </head>
 <body>
     <header>
@@ -24,17 +23,17 @@
             <div class="row">
                 <div class="container">
                     
-                    <div>
-                        <div class="choose-heading">
-                            <h1 class="choose-title">
-                                Welcome to your Sky Health<br>Check!
-                            </h1>
-                            <p class="choose-description"> 
-                                Help us improve by sharing your insights on our recent performance <br> and overall experience.
-                            </p>
-                        </div>
+                    <!-- left heading section -->
+                    <div class="choose-heading">
+                        <h1 class="choose-title">
+                            Welcome to your Sky Health<br>Check!
+                        </h1>
+                        <p class="choose-description"> 
+                            Help us improve by sharing your insights on our recent performance <br> and overall experience.
+                        </p>
                     </div>
-
+                    
+                    <!-- team selection dropdown -->
                     <div class="dropdown-container">
                         <h2 class="dropdown-title">Choose your team</h2>
                         <div class="chooseTeam-dropdown">
@@ -43,13 +42,18 @@
                                     Select team
                                 </option>
                                 {% for team in teams %}
+                                    <!-- dynamically populates team dropdown menu -->
                                     <option value="{{team.teamId}}">{{team.teamName}}</option>
                                 {% endfor %}
                             </select>
+                            <span class="choose-arrow-down"><i class="fa-solid fa-angle-down"></i></span>
                         </div>
 
-                        <div class="error-message" id="team-error-message">Please choose a team before continuing</div>
-                        <button class="chooseTeam-button" id="CT-continue-button">Continue</button>
+                        <!-- continue button that redirects user to the startPage -->
+                        <a href="{% url 'startPage' %}">
+                            <button class="chooseTeam-button" id="CT-continue-button">Continue</button>
+                        </a>
+
                     </div>
                 </div>
             </div>
