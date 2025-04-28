@@ -1,0 +1,434 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- webpage CSS -->
+    <link href="{% static 'results.css'%}" rel="stylesheet">
+    <!-- results javascript -->
+     <script src="{%static 'results.js' %}"></script>
+</head>
+<body>
+    <header>
+        {% include 'navbar.html' %}
+    </header>
+
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="search-container">
+                        <div class="search-filters">
+                            <!-- search filters based on the user role = engineer -->
+                            <div class="user-filters"  {% if not show_engineer_filters %}style="display: none;"{% endif %}>
+                                <!-- type filter -->
+                                <div class="filter-item">
+                                    <div class="dropdown-container">
+                                        <label for="typeDropdown" class="dropdown-toggle" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="typeDropdownLabel1">
+                                            Type
+                                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
+                                            </label>
+                                        <div class="dropdown-menu" role="listbox" aria-labelledby="typeDropdownLabel1">
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="individual"> Individual
+                                                </label>
+                                            </div>
+                                            {% if user_team %}
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="{{ user_team.teamId }}"> {{ user_team.teamName }}
+                                                </label>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- health check card filter -->
+                                <div class="filter-item">
+                                    <div class="dropdown-container">
+                                        <label for="healthCheckCardDropdown" class="dropdown-toggle" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="healthCheckDropdownLabel1">
+                                            Health Check Card
+                                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
+                                        </label>
+                                        <div class="dropdown-menu" role="listbox" aria-labelledby="healthCheckDropdownLabel1">
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="all"> All Cards
+                                                </label>
+                                            </div>
+                                            {% for card in health_check_cards %}
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="{{ card.cardId }}"> {{ card.cardName }}
+                                                </label>
+                                            </div>
+                                            {% endfor %}
+                                        </div>   
+                                    </div>
+                                </div>
+                                <!-- progress over time filter -->
+                                <div class="filter-item">
+                                    <div class="dropdown-container">
+                                        <label for="progressOverTimeDropdown" class="dropdown-toggle" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="progressDropdownLabel1">
+                                            Progress Over Time
+                                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i></span>
+                                        </label>
+                                        <div class="dropdown-menu" role="listbox" aria-labelledby="progressDropdownLabel1">
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 3 months
+                                                </label>
+                                            </div>
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 6 months
+                                                </label>
+                                            </div>
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 9 months
+                                                </label>
+                                            </div>
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 12 months
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- search filters based on the user role = team leader -->
+                            <div class="user-filters" {% if not show_team_leader_filters %}style="display: none;"{% endif%}>
+                                <!-- type filter -->
+                                <div class="filter-item">
+                                    <div class="dropdown-container">
+                                        <label for="typeDropdown" class="dropdown-toggle" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="typeDropdownLabel2">
+                                            Type
+                                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
+                                            </label>
+                                        <div class="dropdown-menu" role="listbox" aria-labelledby="typeDropdownLabel2">
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="individual"> Individual
+                                                </label>
+                                            </div>
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="all"> All Teams
+                                                </label>
+                                            </div>
+                                            {% for team in available_teams %}
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="{{ team.teamId }}"> {{ team.teamName }}
+                                                </label>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- health check card filter -->
+                                <div class="filter-item">
+                                    <div class="dropdown-container">
+                                        <label for="healthCheckCardDropdown" class="dropdown-toggle" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="healthCheckDropdownLabel2">
+                                            Health Check Card
+                                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
+                                        </label>
+                                        <div class="dropdown-menu" role="listbox" aria-labelledby="healthCheckDropdownLabel2">
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="all"> All Cards
+                                                </label>
+                                            </div>
+                                            {% for card in health_check_cards %}
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="{{ card.cardId }}"> {{ card.cardName }}
+                                                </label>
+                                            </div>
+                                            {% endfor %}
+                                        </div>   
+                                    </div>
+                                </div>
+                                <!-- progress over time filter -->
+                                <div class="filter-item">
+                                    <div class="dropdown-container">
+                                        <label for="progressOverTimeDropdown" class="dropdown-toggle" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="progressDropdownLabel2">
+                                            Progress Over Time
+                                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i></span>
+                                        </label>
+                                        <div class="dropdown-menu" role="listbox" aria-labelledby="progressDropdownLabel2">
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 3 months
+                                                </label>
+                                            </div>
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 6 months
+                                                </label>
+                                            </div>
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 9 months
+                                                </label>
+                                            </div>
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 12 months
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- search filters based on the user role = department leader -->
+                            <div class="user-filters" {% if not show_department_leader_filters %}style="display: none;"{% endif %}>
+                                <!-- department filter -->
+                                <div class="filter-item">
+                                    <div class="dropdown-container">
+                                        <label for="typeDropdown" class="dropdown-toggle" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="departmentDropdownLabel3">
+                                            <span class="dropdown-text" > Departments </span>
+                                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
+                                            </label>
+                                        <div class="dropdown-menu" role="listbox" aria-labelledby="departmentDropdownLabel3">
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="all"> All Departments
+                                                </label>
+                                            </div>
+                                            {% for department in available_departments %}
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="{{ department.departmentId }}"> {{ department.departmentName}}
+                                                </label>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- team filter -->
+                                <div class="filter-item">
+                                    <div class="dropdown-container">
+                                        <label for="typeDropdown" class="dropdown-toggle" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="teamDropdownLabel3">
+                                            <span class="dropdown-text" > Teams </span>
+                                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
+                                            </label>
+                                        <div class="dropdown-menu" role="listbox" aria-labelledby="teamDropdownLabel3">
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="all"> All Teams
+                                                </label>
+                                            </div>
+                                            {% for team in available_teams %}
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="{{ team.teamId }}"> {{ team.teamName }}
+                                                </label>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- health check card filter -->
+                                <div class="filter-item">
+                                    <div class="dropdown-container">
+                                        <label for="healthCheckCardDropdown" class="dropdown-toggle" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="healthCheckDropdownLabel3">
+                                            <span class="dropdown-text" > Health Check Card </span>
+                                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
+                                        </label>
+                                        <div class="dropdown-menu" role="listbox" aria-labelledby="healthCheckDropdownLabel3">
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="all"> All Cards
+                                                </label>
+                                            </div>
+                                            {% for card in health_check_cards %}
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="{{ card.cardId }}"> {{ card.cardName }}
+                                                </label>
+                                            </div>
+                                            {% endfor %}
+                                        </div>   
+                                    </div>
+                                </div>
+                                <!-- progress over time filter -->
+                                <div class="filter-item">
+                                    <div class="dropdown-container">
+                                        <label for="progressOverTimeDropdown" class="dropdown-toggle" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="progressDropdownLabel3">
+                                            <span class="dropdown-text" > Progress Over Time </span>
+                                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i></span>
+                                        </label>
+                                        <div class="dropdown-menu" role="listbox" aria-labelledby="progressDropdownLabel3">
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 3 months
+                                                </label>
+                                            </div>
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 6 months
+                                                </label>
+                                            </div>
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 9 months
+                                                </label>
+                                            </div>
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 12 months
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- search filters based on the user role = senior manager -->
+                            <div class="user-filters" {% if not show_senior_manager_filters %}style="display: none;"{% endif %}>
+                                <!-- department filter -->
+                                <div class="filter-item">
+                                    <div class="dropdown-container">
+                                        <label for="typeDropdown" class="dropdown-toggle" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="departmentDropdownLabel4">
+                                            Departments
+                                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
+                                            </label>
+                                        <div class="dropdown-menu" role="listbox" aria-labelledby="departmentDropdownLabel4">
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="all"> All Departments
+                                                </label>
+                                            </div>
+                                            {% for department in available_departments %}
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="{{ department.departmentId }}"> {{ department.departmentName }}
+                                                </label>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- team filter -->
+                                <div class="filter-item">
+                                    <div class="dropdown-container">
+                                        <label for="typeDropdown" class="dropdown-toggle" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="teamDropdownLabel4">
+                                            Teams
+                                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
+                                            </label>
+                                        <div class="dropdown-menu" role="listbox" aria-labelledby="teamDropdownLabel4">
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="all"> All Teams
+                                                </label>
+                                            </div>
+                                            {% for team in available_teams %}
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="{{ team.teamId }}"> {{ team.teamName }}
+                                                </label>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- health check card filter -->
+                                <div class="filter-item">
+                                    <div class="dropdown-container">
+                                        <label for="healthCheckCardDropdown" class="dropdown-toggle" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="healthCheckDropdownLabel4">
+                                            Health Check Card
+                                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
+                                        </label>
+                                        <div class="dropdown-menu" role="listbox" aria-labelledby="healthCheckDropdownLabel4">
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="all"> All Cards
+                                                </label>
+                                            </div>
+                                            {% for card in health_check_cards %}
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="{{ card.cardId }}"> {{ card.cardName }}
+                                                </label>
+                                            </div>
+                                            {% endfor %}
+                                        </div>   
+                                    </div>
+                                </div>
+                                <!-- progress over time filter -->
+                                <div class="filter-item">
+                                    <div class="dropdown-container">
+                                        <label for="progressOverTimeDropdown" class="dropdown-toggle" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="progressDropdownLabel4">
+                                            Progress Over Time
+                                            <span class="arrow-down"><i class='fa-solid fa-angle-down'></i></span>
+                                        </label>
+                                        <div class="dropdown-menu" role="listbox" aria-labelledby="progressDropdownLabel4">
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 3 months
+                                                </label>
+                                            </div>
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 6 months
+                                                </label>
+                                            </div>
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 9 months
+                                                </label>
+                                            </div>
+                                            <div class="dropdown-item" role="option">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="3"> Last 12 months
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- search button and clear button -->
+                            <div class="search-buttons">
+                                <button type="button" class="btn btn-primary search-btn" aria-label="Search">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <button type="button" class="btn btn-danger clear-btn" aria-label="Clear filters">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="results-container">
+                        <div class="results-message">
+                            <h1 class="gradient-text">Please select a search filter to get your results!</h1>
+                        </div>
+
+                        <!-- search results have to appear after using the filter - STILL NEEDS TO BE FIXED AND CODED -->
+                        <div id="searchResults" class="search-results" style="display: none;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        {% include 'footer.html' %}
+    </footer>
+</body>
+</html>
