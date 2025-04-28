@@ -19,7 +19,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     # authentication app URLs
-    path('login/', auth_views.login_view, name='login'), 
+    path('', auth_views.login_view, name='login'), 
     path('createaccount/', auth_views.create_account, name='create_account'), 
     path('securityquestions/', auth_views.security_questions, name='security_questions'),  
     path('resetpassword/', auth_views.reset_password, name='reset_password'), 
@@ -35,6 +35,7 @@ urlpatterns = [
 
     # results app URLs
     path('results/', resultsViews.results, name='results'),
+    path('results/submit', resultsViews.results, name='results_submit'),
 
     # my account app URLs
     path('account/', accountViews.account_view, name='account'),
