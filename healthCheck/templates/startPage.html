@@ -10,7 +10,6 @@
     <!-- webpage CSS -->
     <link href="{% static 'healthcheck.css'%}" rel="stylesheet">
 
-    <script src="{%static 'healthCheck.js' %}"></script>
 </head>
 <body>
     <header>
@@ -21,20 +20,25 @@
             <div class="row">
                 <div class="form-container">
                     
+                    <!-- progress bar styled to be empty to indicate no questions have been answered yet -->
                     <div class="startPage-progressBar">
                         <div class="progress" style="border-radius: 10px">
                             <div class="progress-fill start-fill"></div>
                         </div>
                     </div>
                     
+                    <!-- start page heading -->
                     <div class="start-heading-container">
                         <h1 class="page-heading">Cast your vote for the health check</h1>
                     </div>
 
+                    <!-- start page button redirects user to heatlthCheckForm -->
                     <div class="start-button-container">
-                        <button class="start-button" id="start-button">
-                            Start<span class="arrow-right"><i class='fa-solid fa-angle-right'></i></span>
-                        </button>
+                        <a href="{% url 'healthCheckForm_default' %}">
+                            <button class="start-button" id="start-button">
+                                Start<span class="arrow-right"><i class='fa-solid fa-angle-right'></i></span>
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
