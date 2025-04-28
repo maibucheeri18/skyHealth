@@ -2,14 +2,14 @@ from django.contrib import admin
 
 from database.models import (
     Engineer, TeamLeader, DepartmentLeader, SeniorManager, 
-    Department, Team, HealthCheckCard, Session
+    Department, Team,  HealthCheckVote, Vote, HealthCheckCard, Session
 )
 
 # Register your models here.
 class EngineerInline(admin.StackedInline):
     model = Engineer
     extra = 1
-    fields = ('username', 'fName', 'lName', 'email', 'jobRole')
+    fields = ('username', 'fName', 'lName', 'email')
     verbose_name = "Team Member"
     verbose_name_plural = "Team Members"
 
@@ -26,8 +26,8 @@ class EngineerAdmin(admin.ModelAdmin):
     list_filter = ('team',)
 
     fields = (
-        'fName', 'lName', 'username', 'email', 'password','jobRole', 
-        'hireDate', 'securityQuestion_Answer1', 'securityQuestion_Answer2','team', 
+        'fName', 'lName', 'username', 'email', 'hireDate', 
+        'securityQuestion_Answer1', 'securityQuestion_Answer2','team', 
     )
 
 @admin.register(TeamLeader)
@@ -36,8 +36,8 @@ class TeamLeaderAdmin(admin.ModelAdmin):
     search_fields = ('username', 'fName', 'lName', 'email')
 
     fields = (
-        'fName', 'lName', 'username', 'email', 'password','jobRole', 
-        'hireDate', 'securityQuestion_Answer1', 'securityQuestion_Answer2',
+        'fName', 'lName', 'username', 'email', 'hireDate', 
+        'securityQuestion_Answer1', 'securityQuestion_Answer2',
     )
 
     def get_queryset(self, request):
@@ -50,8 +50,8 @@ class DepartmentLeader(admin.ModelAdmin):
     search_fields = ('username', 'fName', 'lName', 'email')
 
     fields = (
-        'fName', 'lName', 'username', 'email', 'password','jobRole', 
-        'hireDate', 'securityQuestion_Answer1', 'securityQuestion_Answer2',
+        'fName', 'lName', 'username', 'email', 'hireDate', 
+        'securityQuestion_Answer1', 'securityQuestion_Answer2',
     )
 
     def get_queryset(self, request):
@@ -62,8 +62,8 @@ class DepartmentLeader(admin.ModelAdmin):
 @admin.register(SeniorManager)
 class SeniorManager(admin.ModelAdmin):
     fields = (
-        'fName', 'lName', 'username', 'email', 'password','jobRole', 
-        'hireDate', 'securityQuestion_Answer1', 'securityQuestion_Answer2',
+        'fName', 'lName', 'username', 'email', 'hireDate', 
+        'securityQuestion_Answer1', 'securityQuestion_Answer2',
     )
 
 @admin.register(Team)
@@ -71,7 +71,6 @@ class TeamAdmin(admin.ModelAdmin):
     list_display = ('teamName', 'numOfMembers', 'department', 'leader')
     list_filter = ('department',)
     search_fields = ('teamName',)
-
     inlines = [EngineerInline]
 
 @admin.register(Department)
@@ -79,6 +78,18 @@ class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('departmentName', 'numOfTeams', 'departmentLocation', 'leader')
     search_fields = ('departmentName',)
     inlines = [TeamInline]
+
+@admin.register(HealthCheckVote)
+class HealthCheckVoteAdmin(admin.ModelAdmin):
+    list_display = ('vote', 'card', 'team', 'department')
+    search_fields = ('card',)
+    fields = ('vote', 'card', 'dateCompleted', 'team', 'department')
+
+@admin.register(Vote)
+class VoteAdmin(admin.ModelAdmin):
+    list_display = ('voteColour', 'voteComment')
+    search_fields = ('voteColour',)
+    fields = ('voteColour', 'progressIndicator', 'voteComment', 'session')
 
 @admin.register(HealthCheckCard)
 class HealthCheckCardAdmin(admin.ModelAdmin):
@@ -90,5 +101,4 @@ class HealthCheckCardAdmin(admin.ModelAdmin):
 class SessionAdmin(admin.ModelAdmin):
     list_display = ('sessionId', 'sessionDate')
     list_filter = ('sessionDate',)
-
     fields = ('sessionDate',)
