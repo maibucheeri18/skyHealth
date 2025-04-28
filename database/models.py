@@ -148,6 +148,9 @@ class HealthCheckVote(models.Model):
     card = models.ForeignKey(HealthCheckCard, on_delete=models.CASCADE)
     dateCompleted = models.DateField()
 
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
+
     class Meta:
         db_table = 'HealthCheck_Vote' 
         unique_together = (('vote', 'card', 'dateCompleted'))
