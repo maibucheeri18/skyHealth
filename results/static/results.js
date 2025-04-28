@@ -1,4 +1,3 @@
-//THIS SECTION MIGHT CHANGE AFTER THE BACKEND IMPLEMENTATION
 document.addEventListener('DOMContentLoaded', function() {
     //initialize all dropdowns
     const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
@@ -124,9 +123,100 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    //search button functionality - IT CAN BE FIXED ONLY WHEN THE BACKEND FUNCTIONALITY IS SET
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    //search button functionality
     const searchBtn = document.querySelector('.search-btn');
     
+    searchBtn.addEventListener('click', function() {
+        //find all visible filter containers
+        const visibleFilters = document.querySelector('.user-filters:not([style*="display: none"])');
+        
+        if (!visibleFilters) {
+            console.error('No visible filters found');
+            return;
+        }
+                
+        //find all checked checkboxes in visible filters
+        const checkedBoxes = visibleFilters.querySelectorAll('input[type="checkbox"]:checked');
+        
+        if (checkedBoxes.length === 0) {
+            alert('Please select at least one filter option');
+            return;
+        }
+
+        //initialize an object to store selected values
+        const selectedFilters = {
+            type: [],
+            department: [],
+            team: [],
+            healthCheckCard: [],
+            progressOverTime: []
+        };
+
+        checkedBoxes.forEach(function(checkbox) {
+            const checkboxLabel = checkbox.closest('.checkbox-label');
+            const dropdownContainer = checkbox.closest('.dropdown-container');
+            const labelText = dropdownContainer.querySelector('.dropdown-toggle').textContent.trim();
+            
+            const value = checkboxLabel.childNodes[2].nodeValue.trim();
+
+            //determine which filter category this belongs to
+            if (labelText.includes('Type') || labelText.includes('Types')) {
+                selectedFilters.type.push(value);
+            } else if (labelText.includes('Department')) {
+                selectedFilters.department.push(value);
+            } else if (labelText.includes('Team')) {
+                selectedFilters.team.push(value);
+            } else if (labelText.includes('Health Check Card')) {
+                selectedFilters.healthCheckCard.push(value);
+            } else if (labelText.includes('Progress Over Time')) {
+                selectedFilters.progressOverTime.push(value.match(/\d+/)[0]);
+            }
+        })
+
+        
+        console.log('Selected filters:', selectedFilters);
+
+        fetch('/results/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(selectedFilters)
+        }).then(response => response.json())
+        .then(data => {
+
+            console.log(data['img']);
+
+            const searchResultsArea = document.getElementById('searchResults');
+            const resultsMessage = document.getElementById('resultsMessage');
+
+            const resultImage = document.getElementById('resultImage');
+
+            resultsMessage.style = "display: none;"
+            searchResultsArea.style = "display: block;"
+
+            resultImage.src = '../static/img/'+ data['img'];
+        }).catch(error => {
+            console.log(error);
+        })
+    });
+
 
     //clear button functionality 
     const clearBtn = document.querySelector('.clear-btn');
