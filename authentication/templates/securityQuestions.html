@@ -1,0 +1,77 @@
+<!-- 
+Security Questions Template
+Author: Student_D_Diego_Santos_de_Freitas 
+Purpose: Verification page for password recovery through security questions
+-->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character encoding and responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Questions</title>
+    
+    <!-- External CSS dependencies -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS for this application -->
+    <link href="{% static 'authentication.css'%}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header section with navigation bar -->
+    <header>
+        {% include 'navbar.html' %}  <!-- Reusable navigation component -->
+    </header>
+
+    <!-- Main content area -->
+    <main>
+        <div class="container">
+            <!-- Decorative/image section -->
+            <div class="loginImage">
+                <img src="/static/img/loginImage.png" alt="Team working on computer">
+            </div>
+            
+            <!-- Security questions form section -->
+            <div class="securityForm">
+                <h1 class="securityTitle">
+                    Security questions
+                </h1>
+                <p class="securityDescription">
+                    Please answer the following questions to verify your identity and reset your password.
+                </p>
+                
+                <!-- Form for security question verification -->
+                <form method="POST">
+                    {% csrf_token %}  <!-- CSRF protection token -->
+                    
+                    <!-- First security question field -->
+                    <div class="question-field">
+                        <label for="id_city" class="question1">
+                            What is the name of the city you were born in?
+                        </label>
+                        {{ form.city }}  <!-- City input field -->
+                    </div>
+                    
+                    <!-- Second security question field -->
+                    <div class="question-field">
+                        <label for="id_company" class="question2">
+                            What is the name of the first company you worked for?
+                        </label>
+                        {{ form.company }}  <!-- Company input field -->
+                    </div>
+                    
+                    <!-- Form submission button -->
+                    <button type="submit" class="continueButton">Continue</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer section -->
+    <footer>
+        {% include 'footer.html' %}  <!-- Reusable footer component -->
+    </footer>
+</body>
+</html>
