@@ -77,4 +77,5 @@ def account_view(request):
         
         messages.success(request, 'Profile updated successfully!')
         return redirect('account')  # Make sure this matches your URL name
+    return(request, 'account.html')
     
