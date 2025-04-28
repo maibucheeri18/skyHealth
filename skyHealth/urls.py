@@ -10,6 +10,9 @@ This file defines all the application-level URLs and maps them to their correspo
 # Author: Student_D_Diego_Santos_de_Freitas 
 
 from django.contrib import admin
+
+from django.urls import include, path
+
 from django.urls import path
 from results import views as resultsViews
 
@@ -20,6 +23,9 @@ from authentication import views as auth_views
 urlpatterns = [
     # Admin site URL
     path('admin/', admin.site.urls),
+    
+    path('account/', include('myAccount.urls')),
+
     path('results/', resultsViews.results),
     path('healthCheck/chooseSession/', formsViews.chooseSession, name="chooseSession"),
     path('healthCheck/chooseTeam/', formsViews.chooseTeam, name="chooseTeam"),
