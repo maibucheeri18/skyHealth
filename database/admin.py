@@ -1,104 +1,91 @@
 from django.contrib import admin
-
-from database.models import (
-    Engineer, TeamLeader, DepartmentLeader, SeniorManager, 
-    Department, Team,  HealthCheckVote, Vote, HealthCheckCard, Session
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
+from .models import (
+    Department, Team, UserProfile, HealthCheckCard, 
+    Session, Vote, HealthCheckVote
 )
 
-# Register your models here.
-class EngineerInline(admin.StackedInline):
-    model = Engineer
-    extra = 1
-    fields = ('username', 'fName', 'lName', 'email')
-    verbose_name = "Team Member"
-    verbose_name_plural = "Team Members"
+class UserProfileInline(admin.StackedInline):
+    model = UserProfile
+    can_delete = False
+    verbose_name_plural = 'User Profiles'
 
-class TeamInline(admin.StackedInline):
-    model = Team
-    extra = 1
-    fields = ('teamName', 'numOfMembers', 'leader')
-    show_change_link = True
+    JOB_ROLE_CHOICES = [
+        ('Engineer', 'Engineer'),
+        ('Team Leader', 'Team Leader'),
+        ('Department Leader', 'Department Leader'),
+        ('Senior Manager', 'Senior Manager'),
+    ]
 
-@admin.register(Engineer)
-class EngineerAdmin(admin.ModelAdmin):
-    list_display = ('username', 'fName', 'lName', 'email', 'team')
-    search_fields = ('username', 'fName', 'lName', 'email')
-    list_filter = ('team',)
-
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        if db_field.name == 'jobRole':
+            kwargs['choices'] = self.JOB_ROLE_CHOICES
+        return super().formfield_for_dbfield(db_field, **kwargs)
+    
     fields = (
-        'fName', 'lName', 'username', 'email', 'hireDate', 
-        'securityQuestion_Answer1', 'securityQuestion_Answer2','team', 
+        'jobRole', 'hireDate', 'team', 'is_engineer', 'is_team_leader',
+        'is_department_leader', 'is_senior_manager', 
+        'securityQuestion_Answer1', 'securityQuestion_Answer2'
     )
 
-@admin.register(TeamLeader)
-class TeamLeaderAdmin(admin.ModelAdmin):
-    list_display = ('username', 'fName', 'lName', 'email')
-    search_fields = ('username', 'fName', 'lName', 'email')
+class CustomerUserAdmin(UserAdmin):
+    inlines = (UserProfileInline,)
+    list_display = ('username', 'email', 'first_name', 'last_name', 'get_job_role', 'is_staff')
+    list_filer = ('profile__jobRole',)
 
-    fields = (
-        'fName', 'lName', 'username', 'email', 'hireDate', 
-        'securityQuestion_Answer1', 'securityQuestion_Answer2',
-    )
+    def get_job_role(self, obj):
+        try:
+            return obj.profile.jobRole
+        except UserProfile.DoesNotExist:
+            return '-'
+    get_job_role.short_description = 'Job Role'
 
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        return qs.filter(led_team__isnull=False)
-
-@admin.register(DepartmentLeader)
-class DepartmentLeader(admin.ModelAdmin):
-    list_display = ('username', 'fName', 'lName', 'email')
-    search_fields = ('username', 'fName', 'lName', 'email')
-
-    fields = (
-        'fName', 'lName', 'username', 'email', 'hireDate', 
-        'securityQuestion_Answer1', 'securityQuestion_Answer2',
-    )
-
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        return qs.filter(led_department__isnull=False)
-
-
-@admin.register(SeniorManager)
-class SeniorManager(admin.ModelAdmin):
-    fields = (
-        'fName', 'lName', 'username', 'email', 'hireDate', 
-        'securityQuestion_Answer1', 'securityQuestion_Answer2',
-    )
-
-@admin.register(Team)
-class TeamAdmin(admin.ModelAdmin):
-    list_display = ('teamName', 'numOfMembers', 'department', 'leader')
-    list_filter = ('department',)
-    search_fields = ('teamName',)
-    inlines = [EngineerInline]
+admin.site.unregister(User)
+admin.site.register(User, CustomerUserAdmin)
 
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
-    list_display = ('departmentName', 'numOfTeams', 'departmentLocation', 'leader')
+    list_display = ('departmentName', 'numOfTeam', 'departmentLocation', 'deptCreateDate', 'get_department_leader')
     search_fields = ('departmentName',)
-    inlines = [TeamInline]
 
-@admin.register(HealthCheckVote)
-class HealthCheckVoteAdmin(admin.ModelAdmin):
-    list_display = ('vote', 'card', 'team', 'department')
-    search_fields = ('card',)
-    fields = ('vote', 'card', 'dateCompleted', 'team', 'department')
+    def get_department_leader(self, obj):
+        if obj.leader:
+            return f"{obj.leader.first_name} {obj.leader.last_name}"
+        return 'None'
+    get_department_leader.short_description = 'Department Leader'
 
-@admin.register(Vote)
-class VoteAdmin(admin.ModelAdmin):
-    list_display = ('voteColour', 'voteComment')
-    search_fields = ('voteColour',)
-    fields = ('voteColour', 'progressIndicator', 'voteComment', 'session')
+@admin.register(Team)
+class TeamAdming(admin.ModelAdmin):
+    list_display = ('teamName', 'numOfMembers', 'department', 'get_team_leader')
+    search_fields = ('teamName',)
+    list_filter = ('department')
+
+    def get_team_leader(self, obj):
+        if obj.leader:
+            return f"{obj.leader.first_name} {obj.leader.last_name}"
+        return 'None'
+    get_team_leader.short_description = 'Team Leader'
 
 @admin.register(HealthCheckCard)
 class HealthCheckCardAdmin(admin.ModelAdmin):
-    list_display = ('cardId', 'cardName')
+    list_display = ('cardId', 'cardName', 'redColorDescrip', 'greenColorDescrip')
     search_fields = ('cardName',)
-    fields = ('cardName', 'redColorDescrip', 'greenColorDescrip')
 
-@admin.register(Session) 
+@admin.register(Session)
 class SessionAdmin(admin.ModelAdmin):
-    list_display = ('sessionId', 'sessionDate')
+    list_display = ('sessionId', 'sessionDate', 'user')
     list_filter = ('sessionDate',)
-    fields = ('sessionDate',)
+    search_fields = ('user__username',)
+
+@admin.register(Vote)
+class VoteAdmin(admin.ModelAdmin):
+    list_display = ('voteId', 'voteColour', 'progressIndicator', 'session')
+    list_filter = ('voteColour', 'progressIndicator')
+    search_fields = ('voteComment',)
+
+@admin.register(HealthCheckVote)
+class HealthCheckVoteAdmin(admin.ModelAdmin):
+    list_display = ('vote', 'card', 'dateCompleted', 'user', 'team', 'department')
+    list_filter = ('dateCompleted', 'team', 'department')
+    search_fields = ('user__username',)
