@@ -90,5 +90,5 @@ class HealthCheckCardAdmin(admin.ModelAdmin):
 class SessionAdmin(admin.ModelAdmin):
     list_display = ('sessionId', 'sessionDate')
     list_filter = ('sessionDate',)
-
     fields = ('sessionDate',)
+

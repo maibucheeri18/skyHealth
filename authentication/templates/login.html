@@ -1,0 +1,83 @@
+<!-- 
+Login Template
+Author: Student_D_Diego_Santos_de_Freitas
+Purpose: User authentication page for Sky Health application
+-->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Character encoding and responsive viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    
+    <!-- External CSS Libraries -->
+    <!-- Bootstrap for responsive layout and components -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS for authentication pages -->
+    <link href="{% static 'authentication.css'%}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        {% include 'navbar.html' %}  <!-- Reusable navigation bar component -->
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <div class="container">
+            <!-- Left Column: Decorative Image -->
+            <div class="loginImage">
+                <img src="/static/img/loginImage.png" alt="Team working together on computer" class="auth-image">
+            </div>
+            
+            <!-- Right Column: Login Form -->
+            <div class="loginForm">
+                <!-- Page Title -->
+                <h1 class="loginTitle">
+                    Login to your account
+                </h1>
+                
+                <!-- Form Navigation Links -->
+                <div class="formLinks">
+                    <a href="{% url 'login' %}" class="loginLabel">Login   |</a> 
+                    <a href="{% url 'create_account' %}" class="createLabel">Create an account</a>
+                </div>
+                
+                <!-- Login Form -->
+                <form method="post">
+                    {% csrf_token %}  <!-- CSRF protection token -->
+                    
+                    <!-- Username/Email Field -->
+                    <div class="login-field">
+                        {{ form.username }}  <!-- Accepts either username or email -->
+                    </div>
+                    
+                    <!-- Password Field -->
+                    <div class="login-field">
+                        {{ form.password }}  <!-- Password input (masked) -->
+                    </div>
+                    
+                    <!-- Password Recovery Link -->
+                    <div class="login-field">
+                        <a href="{% url 'security_questions' %}" class="forgotPassword">
+                            Forgotten Password?
+                        </a>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" class="loginButton">Login</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        {% include 'footer.html' %}  <!-- Reusable footer component -->
+    </footer>
+</body>
+</html>
