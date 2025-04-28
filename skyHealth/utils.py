@@ -10,22 +10,27 @@ def get_user_level_context(request):
             'user_role': None
         }
     
-    # this should be improved and updated on the database
     try: 
-        user_level = request.user.profile.level
+        profile = request.user.profile
+
+        user_level = 0
+        user_role = 'Engineer'
+
+        if profile.is_senior_manager:
+            user_level = 3
+            user_role = 'Senior Manager'
+        elif profile.is_department_leader:
+            user_level = 2
+            user_role = 'Department Leader'
+        elif profile.is_team_leader:
+            user_level = 1
+            user_role = 'Team Leader'
+
+        has_heath_check_access = profile.is_engineer or profile.is_team_leader
     except AttributeError:
         user_level = 0
-
-    role_mapping = {
-        0: 'Engineer',
-        1: 'Team Leader',
-        2: 'Department Leader',
-        3: 'Senior Manager'
-    }
-
-    user_role = role_mapping.get(user_level, 'Engineer')
-
-    has_heath_check_access = user_level in [0, 1]
+        user_role = 'Engineer'
+        has_heath_check_access = True
 
     context = {
         'is_logged_in': True,
@@ -39,7 +44,7 @@ def get_user_level_context(request):
 # determines where to redirect users after login based on the user role
 def handle_login_redirect(request):
     if not request.user.is_authenticated:
-        return redirect('login') # this will change based on the pages
+        return redirect('login') 
     
     try:
         user_level = request.user.profile.level
@@ -47,8 +52,8 @@ def handle_login_redirect(request):
         user_level = 0
 
     if user_level in [0, 1]:
-        return redirect(reverse('health_check:choose_session')) # this will change based on the pages
+        return redirect(reverse('chooseSession')) 
     
     else: 
-        return redirect(reverse('results:dashboard')) # this will change based on the pages
+        return redirect(reverse('results')) 
     
