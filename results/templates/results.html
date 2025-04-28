@@ -58,11 +58,6 @@
                                             <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
                                         </label>
                                         <div class="dropdown-menu" role="listbox" aria-labelledby="healthCheckDropdownLabel1">
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="all"> All Cards
-                                                </label>
-                                            </div>
                                             {% for card in health_check_cards %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
@@ -121,11 +116,6 @@
                                                     <input type="checkbox" value="individual"> Individual
                                                 </label>
                                             </div>
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="all"> All Teams
-                                                </label>
-                                            </div>
                                             {% for team in available_teams %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
@@ -144,11 +134,6 @@
                                             <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
                                         </label>
                                         <div class="dropdown-menu" role="listbox" aria-labelledby="healthCheckDropdownLabel2">
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="all"> All Cards
-                                                </label>
-                                            </div>
                                             {% for card in health_check_cards %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
@@ -202,11 +187,6 @@
                                             <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
                                             </label>
                                         <div class="dropdown-menu" role="listbox" aria-labelledby="departmentDropdownLabel3">
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="all"> All Departments
-                                                </label>
-                                            </div>
                                             {% for department in available_departments %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
@@ -225,11 +205,6 @@
                                             <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
                                             </label>
                                         <div class="dropdown-menu" role="listbox" aria-labelledby="teamDropdownLabel3">
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="all"> All Teams
-                                                </label>
-                                            </div>
                                             {% for team in available_teams %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
@@ -248,11 +223,6 @@
                                             <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
                                         </label>
                                         <div class="dropdown-menu" role="listbox" aria-labelledby="healthCheckDropdownLabel3">
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="all"> All Cards
-                                                </label>
-                                            </div>
                                             {% for card in health_check_cards %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
@@ -306,11 +276,6 @@
                                             <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
                                             </label>
                                         <div class="dropdown-menu" role="listbox" aria-labelledby="departmentDropdownLabel4">
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="all"> All Departments
-                                                </label>
-                                            </div>
                                             {% for department in available_departments %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
@@ -329,11 +294,6 @@
                                             <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
                                             </label>
                                         <div class="dropdown-menu" role="listbox" aria-labelledby="teamDropdownLabel4">
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="all"> All Teams
-                                                </label>
-                                            </div>
                                             {% for team in available_teams %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
@@ -352,11 +312,6 @@
                                             <span class="arrow-down"><i class='fa-solid fa-angle-down'></i>
                                         </label>
                                         <div class="dropdown-menu" role="listbox" aria-labelledby="healthCheckDropdownLabel4">
-                                            <div class="dropdown-item" role="option">
-                                                <label class="checkbox-label">
-                                                    <input type="checkbox" value="all"> All Cards
-                                                </label>
-                                            </div>
                                             {% for card in health_check_cards %}
                                             <div class="dropdown-item" role="option">
                                                 <label class="checkbox-label">
@@ -417,9 +372,10 @@
                             <h1 class="gradient-text">Please select a search filter to get your results!</h1>
                         </div>
 
-                        <!-- search results have to appear after using the filter - STILL NEEDS TO BE FIXED AND CODED -->
+                        <!-- search results have to appear after using the filter -->
                         <div id="searchResults" class="search-results" style="display: none;">
-
+                            <h1 class="gradient-text">Generated Results</h1>
+                            <img id="resultImage" src="{% static 'img/fig.png' %}" alt="Bar Diagrams" width="500" height="500"> 
                         </div>
                     </div>
                 </div>
