@@ -1,0 +1,92 @@
+<!-- 
+Account Creation Template
+Author: Student_D_Diego_Santos_de_Freitas
+Purpose: User registration page for Sky Health application
+-->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic meta tags for character encoding and responsive behavior -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Sky Health Account</title>
+    
+    <!-- External CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Application-specific CSS -->
+    <link href="{% static 'authentication.css'%}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header Section with Navigation -->
+    <header>
+        {% include 'navbar.html' %}  <!-- Reusable navigation bar component -->
+    </header>
+    
+    <!-- Main Content Area -->
+    <main>
+        <div class="container">
+            <!-- Decorative/Illustrative Image -->
+            <div class="loginImage">
+                <img src="/static/img/loginImage.png" alt="Team working on computer">
+            </div>
+            
+            <!-- Account Creation Form Section -->
+            <div class="accountForm">
+                <h1 class="accountTitle">
+                    Create your Sky Health account
+                </h1>
+                
+                <!-- Form Navigation Links -->
+                <div class="formLinks">
+                    <a href="{% url 'login' %}" class="loginLink">Login |</a>
+                    <a href="{% url 'create_account' %}" class="createLink">Create an account</a>
+                </div>
+                
+                <!-- System Messages Display -->
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                        {{ message }}  <!-- Displays success/error messages -->
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <!-- Account Registration Form -->
+                <form method="POST">
+                    {% csrf_token %}  <!-- CSRF protection token -->
+                    
+                    <!-- Form Fields -->
+                    <div class="account-field">
+                        {{ form.first_name }}  <!-- First name input -->
+                    </div>
+                    <div class="account-field">
+                        {{ form.last_name }}  <!-- Last name input -->
+                    </div>
+                    <div class="account-field">
+                        {{ form.email }}  <!-- Email input -->
+                    </div>
+                    <div class="account-field">
+                        {{ form.username }}  <!-- Username input -->
+                    </div>
+                    <div class="account-field">
+                        {{ form.password }}  <!-- Password input -->
+                    </div>
+                    
+                    <!-- Form Submission Button -->
+                    <button type="submit" class="continueButton">Continue</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer Section -->
+    <footer>
+        {% include 'footer.html' %}  <!-- Reusable footer component -->
+    </footer>
+</body>
+</html>
