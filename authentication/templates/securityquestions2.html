@@ -1,0 +1,80 @@
+<!-- 
+Security Questions Setup Template
+Author: Student_D_Diego_Santos_de_Freitas
+Purpose: Allows new users to set security questions for account recovery
+-->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Character encoding and responsive viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Security Questions</title>
+    
+    <!-- External CSS Libraries -->
+    <!-- Bootstrap for responsive layout and components -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS for authentication pages -->
+    <link href="{% static 'authentication.css'%}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header Section with Navigation -->
+    <header>
+        {% include 'navbar.html' %}  <!-- Reusable navigation bar component -->
+    </header>
+    
+    <!-- Main Content Area -->
+    <main>
+        <div class="container">
+            <!-- Left Column: Decorative Image -->
+            <div class="loginImage">
+                <img src="/static/img/loginImage.png" alt="Team collaborating in office environment" class="auth-image">
+            </div>
+            
+            <!-- Right Column: Security Questions Form -->
+            <div class="securityForm">
+                <!-- Page Title and Description -->
+                <h1 class="securityTitle">
+                    Security questions
+                </h1>
+                <p class="securityDescription">
+                    If you forget your password, you will be prompted to answer security questions 
+                    to verify your identity and reset it.
+                </p>
+                
+                <!-- Security Questions Form -->
+                <form method="POST">
+                    {% csrf_token %}  <!-- CSRF protection token -->
+                    
+                    <!-- First Security Question -->
+                    <div class="question-field">
+                        <label for="city" class="questionLabel">
+                            What is the name of the city you were born in?
+                        </label>
+                        <input type="text" id="city" name="city" placeholder="City" required>
+                    </div>
+                    
+                    <!-- Second Security Question -->
+                    <div class="question-field">
+                        <label for="company" class="questionLabel">
+                            What is the name of the first company you worked for?
+                        </label>
+                        <input type="text" id="company" name="company" placeholder="First job company" required>
+                    </div>
+                    
+                    <!-- Form Submission Button -->
+                    <button type="submit" class="signupButton">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer Section -->
+    <footer>
+        {% include 'footer.html' %}  <!-- Reusable footer component -->
+    </footer>
+</body>
+</html>
