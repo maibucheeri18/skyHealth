@@ -11,8 +11,6 @@
     <link href="{% static 'healthcheck.css'%}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script src="{%static 'healthCheck.js' %}"></script>
 </head>
 <body>
     <header>
@@ -24,32 +22,36 @@
             <div class="row">
                 <div class="container">
                     
-                    <div>
-                        <div class="choose-heading">
-                            <h1 class="choose-title">
-                                Welcome to your Sky Health<br>Check!
-                            </h1>
-                            <p class="choose-description"> 
-                                Help us improve by sharing your insights on our recent performance <br> and overall experience.
-                            </p>
-                        </div>
+                    <!-- left heading section -->
+                    <div class="choose-heading">
+                        <h1 class="choose-title">
+                            Welcome to your Sky Health<br>Check!
+                        </h1>
+                        <p class="choose-description"> 
+                            Help us improve by sharing your insights on our recent performance <br> and overall experience.
+                        </p>
                     </div>
 
+                    <!-- session selection dropdown -->
                     <div class="dropdown-container">
                         <h2 class="dropdown-title">Choose your session</h2>
-                        <div class="chooseSession-dropdown">
-                            <select id="session-select" class="chooseSession-select">
-                                <option selected disabled>
-                                    Select session
-                                </option>
-                                {% for session in sessions %}
-                                    <option value="{{session.sessionId}}">{{session.sessionDate}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
 
-                        <div class="error-message" id="session-error-message">Please choose a session before continuing</div>
-                        <button class="chooseSession-button" id="CS-continue-button">Continue</button>
+                        <!-- form to submit selected session -->
+                        <form method="post" action="{% url 'chooseSession' %}">
+                            {% csrf_token %}
+                            <div class="chooseSession-dropdown">
+                                <!-- sessions from database will appear here -->
+                                <select name="session_id" id="session-select" class="chooseSession-select">
+                                    <option value="" selected disabled>Select session</option>
+                                    {% for session in sessions %}
+                                        <option value="{{session.sessionId}}">{{session.sessionDate}}</option>
+                                    {% endfor %}
+                                </select>
+                                <span class="choose-arrow-down"><i class="fa-solid fa-angle-down"></i></span>
+                            </div>
+                            <!-- continue button that redirects user to chooseTeam-->
+                            <button class="chooseSession-button" id="CS-continue-button">Continue</button>
+                        </form>
                     </div>
                 </div>
             </div>
