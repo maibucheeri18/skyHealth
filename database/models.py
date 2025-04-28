@@ -1,91 +1,55 @@
 from django.db import models
-# Django's built-in User model
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import User
 
 # Create your models here.
 # this is based on the SQL Query that was created in coursework one
-
-class CustomUserManager(BaseUserManager):
-    def create_user(self, email, username, password=None, **extra_fields):
-        if not email: 
-            raise ValueError('User must have an email address')
-        if not username:
-            raise ValueError('Users must have a username')
-        
-        user = self.model(
-            email=self.normalize_email(email),
-            username=username, 
-            **extra_fields
-        )
-
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
     
-class User(AbstractBaseUser):
-    fName = models.CharField(max_length=50)
-    lName = models.CharField(max_length=50)
-    username = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(max_length=50, unique=True)
-    jobRole = models.CharField(max_length=20)
-    hireDate = models.DateField()
-    securityQuestion_Answer1 = models.CharField(max_length=100)
-    securityQuestion_Answer2 = models.CharField(max_length=100)
-
-    objects = CustomUserManager()
-
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'fName', 'lName']
-
-    def __str__(self):
-        return f"{self.fName} {self.lName}"
-
-    class Meta:
-        abstract = True # this means its an abstract class and should not be used directly
-
-class Engineer(User):
-    team = models.ForeignKey('Team', on_delete=models.SET_NULL, null=True, related_name='engineers')
-    class Meta:
-        db_table = 'Engineer' # creates the table name
-
-class TeamLeader(User):
-    class Meta: 
-        db_table = 'Team_Leader'
-
-class DepartmentLeader(User):
-    class Meta:
-        db_table = 'Department_Leader' 
-
-class SeniorManager(User):
-    class Meta: 
-        db_table = 'Senior_Manager' 
-
 class Department(models.Model):
     departmentId = models.AutoField(primary_key=True)
     departmentName = models.CharField(max_length=50, unique=True)
-    numOfTeams = models.IntegerField()
+    numOfTeam = models.IntegerField()
     deptCreateDate = models.DateField()
     departmentLocation = models.CharField(max_length=50)
-    leader = models.OneToOneField(DepartmentLeader, on_delete=models.SET_NULL, null=True, related_name='led_department')
+    leader = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, related_name='led_department')
 
     def __str__(self):
         return self.departmentName
     
-    class Meta:
-        db_table = 'Department' 
+    class Meta: 
+        db_table = 'Department'
 
 class Team(models.Model):
     teamId = models.AutoField(primary_key=True)
     teamName = models.CharField(max_length=20, unique=True)
     numOfMembers = models.IntegerField()
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='teams')
-    leader = models.OneToOneField(TeamLeader, on_delete=models.SET_NULL, null=True, related_name='led_team')
+    leader = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, related_name='led_team')
 
     def __str__(self):
         return self.teamName
     
     class Meta:
         db_table = 'Team'
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    jobRole = models.CharField(max_length=20)
+    hireDate = models.DateField()
+    securityQuestion_Answer1 = models.CharField(max_length=100)
+    securityQuestion_Answer2 = models.CharField(max_length=100)
+
+    is_engineer = models.BooleanField(default=False)
+    is_team_leader = models.BooleanField(default=False)
+    is_department_leader = models.BooleanField(default=False)
+    is_senior_manager = models.BooleanField(default=False)
+
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True, related_name='engineers')
+
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name}"
+    
+    class Meta:
+        db_table = 'UserProfile'
 
 class HealthCheckCard(models.Model):
     cardId = models.AutoField(primary_key=True)
@@ -114,21 +78,13 @@ class HealthCheckResult(models.Model):
 
     class Meta: 
         db_table = 'HealthCheck_Result' 
-        unique_together = (('card', 'result'))
+        unique_together = (('card', 'result'),)
 
 
 class Session(models.Model):
     sessionId = models.AutoField(primary_key=True)
     sessionDate = models.DateField()
-    user = models.ForeignKey('Engineer', on_delete=models.CASCADE, null=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        if self.user and not (
-            Engineer.objects.filter(id=self.user.id).exists() or
-            TeamLeader.objects.filter(id=self.user.id).exists()
-        ):
-            raise ValueError("User must be either an Engineer or Team Leader")
-        super().save(*args, **kwargs)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta: 
         db_table = 'Session' 
@@ -147,10 +103,10 @@ class HealthCheckVote(models.Model):
     vote = models.ForeignKey(Vote, on_delete=models.CASCADE)
     card = models.ForeignKey(HealthCheckCard, on_delete=models.CASCADE)
     dateCompleted = models.DateField()
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
 
     class Meta:
         db_table = 'HealthCheck_Vote' 
-        unique_together = (('vote', 'card', 'dateCompleted'))
+        unique_together = (('vote', 'card', 'dateCompleted'),)
