@@ -56,17 +56,17 @@
                     <ul class="navbar-nav">
                         {% if has_health_check_access %}
                         <li class="navbar-item">
-                            <a class="nav-link {% if request.resolver_match.app_name == 'health_check' %}active{% endif %}" href="#">Health Check</a>
+                            <a class="nav-link {% if request.resolver_match.url_name == 'chooseSession' %}active{% endif %}" href="{% url 'chooseSession' %}">Health Check</a>
                         </li>
                         {% endif %}
                         <li class="navbar-item">
-                            <a class="nav-link {% if request.resolver_match.app_name == 'results' %}active{% endif %}" href="#">Results</a>
+                            <a class="nav-link {% if request.resolver_match.url_name == 'results' %}active{% endif %}" href="{% url 'results' %}">Results</a>
                         </li>
                         <li class="navbar-item">
-                            <a class="nav-link {% if request.resolver_match.app_name == 'my_account' %}active{% endif %}" href="#">My Account</a>
+                            <a class="nav-link {% if request.resolver_match.url_name == 'account' %}active{% endif %}" href="{% url 'account' %}">My Account</a>
                         </li>
                         <li class="navbar-item">
-                            <a class="nav-link {% if request.resolver_match.app_name == 'log_off'%}active{% endif %}" href="#">Log Off</a>
+                            <a class="nav-link {% if request.resolver_match.url_name == 'log_off'%}active{% endif %}" href="#">Log Off</a>
                         </li>
                     </ul>
                 </div>
