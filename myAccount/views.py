@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
-from database.models import Engineer, TeamLeader, DepartmentLeader, SeniorManager
+from database.models import User
 
 #login_required
 def account_view(request):
@@ -31,10 +31,7 @@ def account_view(request):
             errors['username'] = 'Username is required'
         elif username != user.username:
             # Check across all user types
-            if (Engineer.objects.filter(username=username).exists() or
-                TeamLeader.objects.filter(username=username).exists() or
-                DepartmentLeader.objects.filter(username=username).exists() or
-                SeniorManager.objects.filter(username=username).exists()):
+            if (User.objects.filter(username=username).exists()):
                 errors['username'] = 'The username has already been taken'
         
         # Email validation
@@ -42,10 +39,7 @@ def account_view(request):
             errors['email'] = 'Email is required'
         elif email != user.email:
             # Check across all user types
-            if (Engineer.objects.filter(email=email).exists() or
-                TeamLeader.objects.filter(email=email).exists() or
-                DepartmentLeader.objects.filter(email=email).exists() or
-                SeniorManager.objects.filter(email=email).exists()):
+            if (User.objects.filter(email=email).exists()):
                 errors['email'] = 'This email is already in use'
         
         # If there are errors, return them
