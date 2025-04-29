@@ -1,10 +1,10 @@
 # Author: Student_D_Diego_Santos_de_Freitas 
 
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib import messages
 from .forms import LoginForm, CreateAccountForm, SetSecurityQuestionsForm, CheckSecurityQuestionsForm, ResetPasswordForm
-from database.models import User, Engineer, TeamLeader, DepartmentLeader, SeniorManager
+from database.models import User
 
 def login_view(request):
     """
@@ -173,6 +173,9 @@ def reset_password(request):
 
     return render(request, 'resetpassword.html', {'form': form})
 
+def logout_view(request):
+    auth_logout(request)
+    return redirect('login')
 
 def dashboard(request):
     """Placeholder for future dashboard implementation"""
