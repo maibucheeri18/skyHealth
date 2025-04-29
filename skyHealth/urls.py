@@ -17,6 +17,8 @@ from myAccount import views as accountViews
 urlpatterns = [
     # Admin site URL
     path('admin/', admin.site.urls),
+    # Navbar
+    path('navbar/', auth_views.navbar),
     
     # authentication app URLs
     path('', auth_views.login_view, name='login'), 
