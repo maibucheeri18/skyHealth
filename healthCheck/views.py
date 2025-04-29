@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from database.models import Session
 from database.models import Team
@@ -8,6 +9,7 @@ from .forms import HealthCheckVoteForm
 # Create your views here.
 
 #View for selecting a session
+@login_required
 def chooseSession(request):
     if request.method == 'POST':
         session_id = request.POST.get('session_id')
@@ -21,15 +23,18 @@ def chooseSession(request):
     return render(request, 'chooseSession.html', {'sessions': sessions})
 
 #View for selecting a team
+@login_required
 def chooseTeam(request):
     teams = Team.objects.all()
     return render(request, 'chooseTeam.html', {'teams': teams})
 
 #View for healthCheck startPage
+@login_required
 def startPage(request):
     return render(request, 'startPage.html')
 
 # view for the healthCheckForm
+@login_required
 def healthCheckForm(request, card_index=0):
     # retrieve the 10 health check cards
     cards = HealthCheckCard.objects.all()[:10]
@@ -82,5 +87,6 @@ def healthCheckForm(request, card_index=0):
     })
 
 #View for the closingPage
+@login_required
 def closingPage(request):
     return render(request, 'closingPage.html')

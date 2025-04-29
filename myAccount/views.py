@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from database.models import User
 
-#login_required
+@login_required
 def account_view(request):
     # Get the current user
     user = request.user

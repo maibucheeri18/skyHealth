@@ -15,7 +15,7 @@ matplotlib.use('agg')
 
 # Create your views here.
 # results page
-
+@login_required
 def results(request):
     # the following is regarding adapting the search filter based on the user logged in
     context = get_user_level_context(request)
