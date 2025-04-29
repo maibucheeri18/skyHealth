@@ -1,10 +1,13 @@
 # Author: Student_D_Diego_Santos_de_Freitas 
 
+import json
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+
+from skyHealth.utils import get_user_level_context
 from .forms import LoginForm, CreateAccountForm, SetSecurityQuestionsForm, CheckSecurityQuestionsForm, ResetPasswordForm
 from database.models import UserProfile
 
@@ -15,6 +18,11 @@ def login_view(request):
     - Redirect to dashboard on success
     - Show error on invalid credentials
     """
+
+    context = get_user_level_context(request)
+    print(context)
+    user_level = context.get('user_level', 0)
+
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -34,8 +42,25 @@ def login_view(request):
             
             # This is has to be corrected based on the URL and user
             if user is not None:
-                auth_login(request, user)
-                return redirect('dashboard')
+                user_obj = UserProfile.objects.filter(user=user)
+
+                print(user_level, user_obj)
+
+                if user_level == 0 and user_obj[0].is_engineer:
+                    auth_login(request, user)
+                    return redirect('chooseSession')
+                elif user_level == 1 and user_obj[0].is_team_leader:
+                    auth_login(request, user)
+                    return redirect('chooseSession')
+                elif user_level == 2 and user_obj[0].is_department_leader:
+                    auth_login(request, user)
+                    return redirect('results')
+                elif user_level == 3 and user_obj[0].is_senior_manager:
+                    auth_login(request, user)
+                    return redirect('results')
+                else:
+                    print("You idiot, use the correct area")
+                
             else:
                 messages.error(request, 'Invalid username/email or password')
     else:
@@ -53,12 +78,19 @@ def create_account(request):
     """
     if request.method == 'POST':
         form = CreateAccountForm(request.POST)
+
+        print(form.errors)
+
         if form.is_valid():
+
             user = form.save()
             password = form.cleaned_data.get('password')
-            user = authenticate(username=user.username, password=user.password)
+
+            user = authenticate(username=user.username, password=password)
+
             if user is not None:
                 auth_login(request, user)
+            print(password)
             return redirect('security_questions2')
         else:
             messages.error(request, "Error during authentication")
@@ -169,6 +201,22 @@ def reset_password(request):
 def logout_view(request):
     auth_logout(request)
     return redirect('login')
+
+def navbar(request):
+    try:
+        if request.method == "POST":
+            data = json.loads(request.body)
+            value = data.get('role')
+            print(value)
+            with open("./static/common.json", 'w') as f:
+                json.dump({'role': value}, f)
+    except:
+        print("Error")
+
+
+
+
+    return HttpResponse('Ok')
 
 def dashboard(request):
     """Placeholder for future dashboard implementation"""
