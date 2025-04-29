@@ -33,7 +33,6 @@ class Team(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    jobRole = models.CharField(max_length=20)
     hireDate = models.DateField()
     securityQuestion_Answer1 = models.CharField(max_length=100)
     securityQuestion_Answer2 = models.CharField(max_length=100)
@@ -59,27 +58,6 @@ class HealthCheckCard(models.Model):
 
     class Meta:
         db_table = 'HealthCheck_Card' 
-
-class ResultView(models.Model):
-    resultId = models.AutoField(primary_key=True)
-    summaryType = models.CharField(max_length=50)
-    averageProgressScore = models.IntegerField()
-    progressOverTime = models.IntegerField() 
-    cardProgressSummary = models.CharField(max_length=500)
-    teamProgressSummary = models.CharField(max_length=500)
-    deptProgressSummary = models.CharField(max_length=500)
-
-    class Meta:
-        db_table = 'Result_View'
-
-class HealthCheckResult(models.Model):
-    card = models.ForeignKey(HealthCheckCard, on_delete=models.CASCADE)
-    result = models.ForeignKey(ResultView, on_delete=models.CASCADE)
-
-    class Meta: 
-        db_table = 'HealthCheck_Result' 
-        unique_together = (('card', 'result'),)
-
 
 class Session(models.Model):
     sessionId = models.AutoField(primary_key=True)
