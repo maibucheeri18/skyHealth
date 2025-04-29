@@ -106,7 +106,7 @@ def results(request):
             if data['type']:
                 for t in data['type']:
 
-                    if t == "individual":
+                    if t == "Individual":
                         user_profile = UserProfile.objects.filter(user_id=request.user.id, is_engineer=True)
 
                         for c in data['healthCheckCard']:
@@ -119,14 +119,15 @@ def results(request):
                             green = 0
 
                             for v in checkVotes:
-                                oldDate = datetime.datetime(
-                                    v.dateCompleted.year,
-                                    v.dateCompleted.month+int(data['progressOverTime'][0]),
-                                    v.dateCompleted.day
-                                )
+                                if len(data['progressOverTime']) != 0:
+                                    oldDate = datetime.datetime(
+                                        v.dateCompleted.year,
+                                        v.dateCompleted.month+int(data['progressOverTime'][0]),
+                                        v.dateCompleted.day
+                                    )
 
-                                if oldDate < datetime.datetime.now():
-                                    continue
+                                    if oldDate < datetime.datetime.now():
+                                        continue
 
                                 match(v.vote.voteColour.lower()):
                                     case 'red':
@@ -135,6 +136,9 @@ def results(request):
                                         green += 1
                                     case 'amber':
                                         amber += 1
+                    
+                            votes.update({card[0].cardName: [red, amber, green]})
+
                     else:
                         team = Team.objects.filter(teamName = t)
 
@@ -151,14 +155,15 @@ def results(request):
                             green = 0
 
                             for v in checkVotes:
-                                oldDate = datetime.datetime(
-                                    v.dateCompleted.year,
-                                    v.dateCompleted.month+int(data['progressOverTime'][0]),
-                                    v.dateCompleted.day
-                                )
+                                if len(data['progressOverTime']) != 0:
+                                    oldDate = datetime.datetime(
+                                        v.dateCompleted.year,
+                                        v.dateCompleted.month+int(data['progressOverTime'][0]),
+                                        v.dateCompleted.day
+                                    )
 
-                                if oldDate < datetime.datetime.now():
-                                    continue
+                                    if oldDate < datetime.datetime.now():
+                                        continue
 
                                 match(v.vote.voteColour.lower()):
                                     case 'red':
@@ -184,15 +189,16 @@ def results(request):
                         green = 0
 
                         for v in checkVotes:
-                            oldDate = datetime.datetime(
-                                v.dateCompleted.year,
-                                v.dateCompleted.month+int(data['progressOverTime'][0]),
-                                v.dateCompleted.day
-                            )
+                            if len(data['progressOverTime']) != 0:
+                                oldDate = datetime.datetime(
+                                    v.dateCompleted.year,
+                                    v.dateCompleted.month+int(data['progressOverTime'][0]),
+                                    v.dateCompleted.day
+                                )
 
-                            if oldDate < datetime.datetime.now(): 
-                                continue
-
+                                if oldDate < datetime.datetime.now():
+                                    continue
+                            
                             match (v.vote.voteColour.lower()):
                                 case 'red':
                                     red += 1
@@ -217,15 +223,16 @@ def results(request):
                         green = 0
 
                         for v in checkVotes:
-                            oldDate = datetime.datetime(
-                                v.dateCompleted.year, 
-                                v.dateCompleted.month+int(data['progressOverTime'][0]),
-                                v.dateCompleted.day
-                            )
+                            if len(data['progressOverTime']) != 0:
+                                oldDate = datetime.datetime(
+                                    v.dateCompleted.year,
+                                    v.dateCompleted.month+int(data['progressOverTime'][0]),
+                                    v.dateCompleted.day
+                                )
 
-                            if oldDate < datetime.datetime.now():
-                                continue
-
+                                if oldDate < datetime.datetime.now():
+                                    continue
+                        
                             match (v.vote.voteColour.lower()):
                                 case 'red':
                                     red += 1
@@ -268,3 +275,4 @@ def __make_graph(v):
 
     plt.savefig('.//static//img//' + filename)
 
+    return filename
