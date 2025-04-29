@@ -3,8 +3,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 from .forms import LoginForm, CreateAccountForm, SetSecurityQuestionsForm, CheckSecurityQuestionsForm, ResetPasswordForm
-from database.models import User
+from database.models import UserProfile
 
 def login_view(request):
     """
@@ -24,15 +26,13 @@ def login_view(request):
 
             # Fallback to email authentication if username fails
             if user is None:
-                user_classes = [Engineer, TeamLeader, DepartmentLeader, SeniorManager]
-                for model in user_classes:
-                    try:
-                        user_obj = model.objects.get(email=username)
-                        user = authenticate(request, username=user_obj.username, password=password)
-                        break
-                    except model.DoesNotExist:
-                        continue
+                try:
+                    user_obj = User.objects.get(email=username)
+                    user = authenticate(request, username=user_obj.username, password=password)
+                except User.DoesNotExist:
+                    pass
             
+            # This is has to be corrected based on the URL and user
             if user is not None:
                 auth_login(request, user)
                 return redirect('dashboard')
@@ -55,8 +55,13 @@ def create_account(request):
         form = CreateAccountForm(request.POST)
         if form.is_valid():
             user = form.save()
-            auth_login(request, user)
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=user.username, password=user.password)
+            if user is not None:
+                auth_login(request, user)
             return redirect('security_questions2')
+        else:
+            messages.error(request, "Error during authentication")
     else:
         form = CreateAccountForm()
     return render(request, 'createaccount.html', {'form': form})
@@ -72,10 +77,20 @@ def security_questions2(request):
         form = SetSecurityQuestionsForm(request.POST)
         if form.is_valid():
             user = request.user
-            user.securityQuestion_Answer1 = form.cleaned_data['city']
-            user.securityQuestion_Answer2 = form.cleaned_data['company']
-            user.save()
-            return redirect('login')
+            try:
+                profile = UserProfile.objects.get(user=user)
+                profile.securityQuestion_Answer1 = form.cleaned_data['city']
+                profile.securityQuestion_Answer2 = form.cleaned_data['company']
+                profile.save()
+                return redirect('login')
+            except UserProfile.DoesNotExist:
+                UserProfile.objects.create(
+                    user=user,
+                    jobRole='Not specified',  # Default value
+                    hireDate=datetime.now().date(),  # Default to today
+                    securityQuestion_Answer1=form.cleaned_data['city'],
+                    securityQuestion_Answer2=form.cleaned_data['company']
+                )
     else:
         form = SetSecurityQuestionsForm()
 
@@ -85,7 +100,7 @@ def security_questions2(request):
 def security_questions(request):
     """
     Verify identity via security questions for password recovery:
-    - Check answers across all user types
+    - Check answers in UserProfile
     - Store verification in session if successful
     - Handle failed attempts with error messages
     """
@@ -95,28 +110,18 @@ def security_questions(request):
             city = form.cleaned_data['city']
             company = form.cleaned_data['company']
 
-            user_classes = [Engineer, TeamLeader, DepartmentLeader, SeniorManager]
-            found_user = False
-            
-            for model in user_classes:
-                try:
-                    user = model.objects.get(
-                        securityQuestion_Answer1__iexact=city,
-                        securityQuestion_Answer2__iexact=company
-                    )
-                    
-                    # Store verification in session
-                    request.session['reset_user_id'] = user.id
-                    request.session['reset_user_model'] = model.__name__
-                    request.session.modified = True
-                    
-                    found_user = True
-                    return redirect('reset_password')
-
-                except model.DoesNotExist:
-                    continue
-            
-            if not found_user:
+            try:
+                profile = UserProfile.objects.get(
+                    securityQuestion_Answer1__iexact=city,
+                    securityQuestion_Answer2__iexact=company
+                )
+                
+                # Store verification in session
+                request.session['reset_user_id'] = profile.user.id
+                request.session.modified = True
+                
+                return redirect('reset_password')
+            except UserProfile.DoesNotExist:
                 messages.error(request, "Security answers didn't match any user.")
         else:
             messages.error(request, "Please fill in all fields correctly.")
@@ -134,7 +139,7 @@ def reset_password(request):
     - Clear session data after completion
     """
     # Verify proper verification flow
-    if 'reset_user_id' not in request.session or 'reset_user_model' not in request.session:
+    if 'reset_user_id' not in request.session:
         messages.error(request, "Please answer security questions first.")
         return redirect('security_questions')
     
@@ -142,32 +147,20 @@ def reset_password(request):
         form = ResetPasswordForm(request.POST)
         if form.is_valid():
             user_id = request.session.get('reset_user_id')
-            user_model_name = request.session.get('reset_user_model')
 
-            # Map model names to actual classes
-            model_map = {
-                'Engineer': Engineer,
-                'TeamLeader': TeamLeader,
-                'DepartmentLeader': DepartmentLeader,
-                'SeniorManager': SeniorManager
-            }
-            model = model_map.get(user_model_name)
+            try:
+                user = User.objects.get(id=user_id)
+                user.set_password(form.cleaned_data['new_password'])
+                user.save()
 
-            if model:
-                try:
-                    user = model.objects.get(id=user_id)
-                    user.set_password(form.cleaned_data['new_password'])
-                    user.save()
-
-                    # Clean up session
-                    request.session.pop('reset_user_id', None)
-                    request.session.pop('reset_user_model', None)
-                    
-                    messages.success(request, "Password has been reset successfully!")
-                    return redirect('login')
-                except model.DoesNotExist:
-                    messages.error(request, "Something went wrong. Please try again.")
-                    return redirect('login')
+                # Clean up session
+                request.session.pop('reset_user_id', None)
+                
+                messages.success(request, "Password has been reset successfully!")
+                return redirect('login')
+            except User.DoesNotExist:
+                messages.error(request, "Something went wrong. Please try again.")
+                return redirect('login')
     else:
         form = ResetPasswordForm()
 
