@@ -132,9 +132,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Authentication settings
-LOGIN_URL = '/login/'  # URL where users will be redirected when login is required
-LOGIN_REDIRECT_URL = '/dashboard/'  # URL to redirect after successful login
-LOGOUT_REDIRECT_URL = '/login/'  # URL to redirect after logout
+LOGIN_URL = 'login'  # URL where users will be redirected when login is required
 
 # Session settings
 SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
