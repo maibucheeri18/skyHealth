@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (isValid) {
-            submitForm();
+            submitForm(firstName.value, lastName.value, email.value, username.value, password.value);
         }
     }
     
@@ -157,70 +157,52 @@ document.addEventListener('DOMContentLoaded', function() {
         return passwordRegex.test(password);
     }
 
-    function submitForm() {
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function submitForm(fName, lName, email, un, ps) {
         // Here you would normally collect the form data and send to the backend
         const formData = new FormData(form);
         
+        console.log(formData)
+        
         // For demonstration purposes - showing the data that would be sent
+        var data = {}
         console.log('Form data to be submitted:');
         for (let [key, value] of formData.entries()) {
             console.log(`${key}: ${value}`);
+            data[key] = value
         }
         
-        // This is where you would add the AJAX call to your backend
-        // For now, just simulate a successful update
-        alert('Profile updated successfully!');
+        fetch('/account/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body:  JSON.stringify({
+                'first_name': data['first_name'],
+                'last_name': data['last_name'],
+                'email': data['email'],
+                'username': data['username'],
+                'password': data['password']
+            })
+        })
         
         // Return to read-only state
         disableEditMode();
 
-    // This should be added to your existing JavaScript for form submission
-function submitForm() {
-const formData = new FormData();
-
-// Get values and append them with the correct field names
-formData.append('first_name', document.getElementById('first_name').value);
-formData.append('last_name', document.getElementById('last_name').value);
-formData.append('email', document.getElementById('email').value);
-formData.append('username', document.getElementById('username').value);
-formData.append('password', document.getElementById('password').value);
-
-// Add CSRF token
-const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-formData.append('csrfmiddlewaretoken', csrfToken);
-
-// Send AJAX request
-fetch('/account/', {  // Adjust the URL to match your route
-method: 'POST',
-body: formData,
-headers: {
-    'X-Requested-With': 'XMLHttpRequest',
-    'X-CSRFToken': csrfToken
-}
-})
-.then(response => response.json())
-.then(data => {
-if (data.success) {
-    alert('Profile updated successfully!');
-    disableEditMode();
-} else {
-    // Handle validation errors from server
-    if (data.errors) {
-        Object.keys(data.errors).forEach(field => {
-            const input = document.getElementById(field);
-            const errorElement = document.getElementById(field + '_error');
-            if (input && errorElement) {
-                input.classList.add('is-invalid');
-                errorElement.textContent = data.errors[field];
-            }
-        });
     }
-}
 })
-.catch(error => {
-console.error('Error:', error);
-alert('An error occurred while updating your profile.');
-});
-}
-    }
-});
