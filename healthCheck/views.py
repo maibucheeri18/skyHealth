@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from database.models import Session
-from database.models import Team
-from database.models import HealthCheckCard
+from database.models import HealthCheckCard, HealthCheckVote, UserProfile, Team, Session, Vote
 from .forms import HealthCheckVoteForm
 
+from skyHealth.utils import get_user_level_context
+
+from datetime import date
 # Create your views here.
 
 #View for selecting a session
@@ -36,6 +37,10 @@ def startPage(request):
 # view for the healthCheckForm
 @login_required
 def healthCheckForm(request, card_index=0):
+
+    context = get_user_level_context(request)
+    user_level = context.get('user_level', 0)
+
     # retrieve the 10 health check cards
     cards = HealthCheckCard.objects.all()[:10]
 
@@ -67,8 +72,56 @@ def healthCheckForm(request, card_index=0):
         
         if form.is_valid():
             # saves vote & health check vote
-            form.save()
+
+            if user_level in [0, 1]:
+                up = UserProfile.objects.filter(id=request.user.id)
+            elif user_level in [2]:
+                department = Department.objects.filter(leader=request.user)
             
+
+            if len(up) != 0:
+                up = up[0]
+            elif len(department) != 0:
+                department = department[0]
+            else:
+                print("User profile does not exist")
+                return
+
+            v = Vote(
+                voteColour=request.POST['voteColour'],
+                progressIndicator=request.POST['progressIndicator'],
+                voteComment=request.POST['voteComment'],
+                session=current_session
+            )
+            v.save()
+
+            card = HealthCheckCard.objects.filter(cardId=form.cleaned_data['card_id'])
+
+            if user_level == 0:
+                card_vote = HealthCheckVote(
+                    card=card[0],
+                    vote=v,
+                    dateCompleted=date.today(),
+                    user=request.user,
+                )
+                card_vote.save()
+            if user_level == 1:
+                card_vote = HealthCheckVote(
+                    card=card[0],
+                    vote=v,
+                    dateCompleted=date.today(),
+                    user=request.user,
+                    team=null if len(Team.objects.filter(teamId=up.team.teamId)) == 0 else Team.objects.filter(teamId=up.team.teamId)
+                )
+                card_vote.save()
+            if user_level == 2:
+                card_vote = HealthCheckVote(
+                    card=card[0],
+                    vote=v,
+                    dateCompleted=date.today(),
+                    department=department
+                )
+                card_vote.save()
             # determine where to redirect based on card index
             if card_index >= len(cards) - 1:
                 return redirect('closingPage')
@@ -90,3 +143,7 @@ def healthCheckForm(request, card_index=0):
 @login_required
 def closingPage(request):
     return render(request, 'closingPage.html')
+
+def logout_view(request):
+    auth_logout(request)
+    return redirect('login')
