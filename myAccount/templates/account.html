@@ -39,7 +39,7 @@
                                 <label for="first_name" class="form-label">First Name</label>
                                 <input type="text" 
                                        class="form-control" id="first_name" 
-                                       name="first_name" value="{{ user.fName }}" readonly>
+                                       name="first_name" value="{{ user.first_name }}" readonly>
                                 <div class="invalid-feedback">
                                     {% if errors.first_name %}
                                         <p>{{ errors.first_name }}</p>
@@ -51,7 +51,7 @@
                                 <label for="last_name" class="form-label">Last Name</label>
                                 <input type="text"  
                                        class="form-control" id="last_name" 
-                                       name="last_name" value="{{ user.lName }}" readonly>
+                                       name="last_name" value="{{ user.last_name }}" readonly>
                                 <div class="invalid-feedback">
                                     {% if errors.last_name %}
                                         <p>{{ errors.last_name }}</p>
