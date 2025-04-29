@@ -71,7 +71,7 @@ class HealthCheckVoteForm(forms.Form):
     # hidden field to pass the healthCheckCard ID
     card_id = forms.IntegerField(widget=forms.HiddenInput())
 
-    #overrids __init__ to accept session and card
+    #overrides __init__ to accept session and card
     def __init__(self, *args, **kwargs):
         self.session = kwargs.pop('session', None)
         self.card = kwargs.pop('card', None)

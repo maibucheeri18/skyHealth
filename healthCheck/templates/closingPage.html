@@ -31,8 +31,12 @@
                         </div>
                     
                     <div class="closing-button-container">
-                        <button class="results-button">View Results</button>
-                        <button class="logOff-button">Log Off</button>
+                        <a href="{% url 'results' %}">
+                            <button class="results-button">View Results</button>
+                        </a>
+                        <a href="{% url 'log_off'%}">
+                            <button class="logOff-button">Log Off</button>
+                        </a>
                     </div>
 
                 </div>
