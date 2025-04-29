@@ -52,7 +52,7 @@ def results(request):
 
     elif user_level == 2:
         try: 
-            dept_leader = UserProfile.objects.get(user_id=user_id, is_department_leaader=True)
+            dept_leader = UserProfile.objects.get(user_id=user_id, is_department_leader=True)
             led_department = dept_leader.user.led_department
             teams_in_department = Team.objects.filter(department=led_department) if led_department else []
 
@@ -84,8 +84,6 @@ def results(request):
         'show_senior_manager_filters': user_level == 3,
         'health_check_cards': health_check_cards
     })
-
-    result = False
 
     if request.method == 'POST':
         try:
