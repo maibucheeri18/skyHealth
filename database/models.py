@@ -42,7 +42,7 @@ class UserProfile(models.Model):
     is_department_leader = models.BooleanField(default=False)
     is_senior_manager = models.BooleanField(default=False)
 
-    team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True, related_name='engineers')
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True, blank=True, related_name='teams')
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"
