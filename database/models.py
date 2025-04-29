@@ -81,7 +81,7 @@ class HealthCheckVote(models.Model):
     vote = models.ForeignKey(Vote, on_delete=models.CASCADE)
     card = models.ForeignKey(HealthCheckCard, on_delete=models.CASCADE)
     dateCompleted = models.DateField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
 
