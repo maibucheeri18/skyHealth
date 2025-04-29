@@ -24,6 +24,7 @@ urlpatterns = [
     path('securityquestions/', auth_views.security_questions, name='security_questions'),  
     path('resetpassword/', auth_views.reset_password, name='reset_password'), 
     path('securityquestions2/', auth_views.security_questions2, name='security_questions2'),
+    path('logout/', auth_views.logout_view, name='log_off'),
 
     # health check app URLs
     path('healthCheck/chooseSession/', formsViews.chooseSession, name="chooseSession"),
