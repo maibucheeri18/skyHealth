@@ -8,13 +8,29 @@ function saveUserRole(role) {
     sessionStorage.setItem('userRole', role);
 }
 
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
 // update the navbar based on the user
 function updateNavbar(role) {
     const userDropdown = document.getElementById('userDropdown');
     if (userDropdown) {
         userDropdown.innerHTML = role + '<span class="arrow-down"><i class="fa-solid fa-angle-down"></i></span>';
     }
-
     // update dropdown options to include all roles EXCEPT the currently selected one
     const roleDropdown = document.getElementById('roleDropdown');
     if (roleDropdown) {
@@ -46,6 +62,7 @@ function updateNavbar(role) {
     }
 
     updateNavLinks(role);
+    return role;
 }
 
 // Update the main navigation links based on role
@@ -128,6 +145,12 @@ function showAppropriateNavbar() {
     }
 }
 
+function getCurrentRoleNavbar() {
+    const dropDownMenu = document.getElementById('userDropdown');
+
+    return dropDownMenu.childNodes[0].nodeValue;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     showAppropriateNavbar();
     
@@ -135,11 +158,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const userDropdown = document.getElementById('userDropdown');
     const roleDropdown = document.getElementById('roleDropdown');
-    
+
     // Handle dropdown functionality (keeping original behavior)
     if (userDropdown && roleDropdown) {
+
         userDropdown.addEventListener('click', function(event) {
             event.stopPropagation();
+            console.log('ick')
             roleDropdown.classList.toggle('show');
             const arrowIcon = userDropdown.querySelector('.arrow-down i');
             arrowIcon.classList.toggle('fa-angle-down');
@@ -147,19 +172,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         window.addEventListener('click', function() {
+
             if (roleDropdown.classList.contains('show')) {
                 roleDropdown.classList.remove('show');
                 const arrowIcon = userDropdown.querySelector('.arrow-down i');
                 arrowIcon.classList.remove('fa-angle-up');
                 arrowIcon.classList.add('fa-angle-down');
             }
+            console.log("cl");
         });
         
         const currentRole = getCurrentRole();
         updateNavbar(currentRole);
-        
+
         roleDropdown.addEventListener('click', function(event) {
             event.stopPropagation();
+
+            
+            fetch("navbar/", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({
+                    role: getCurrentRoleNavbar()
+                })
+            });
+
         });
     }
 });
