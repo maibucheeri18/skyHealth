@@ -23,6 +23,7 @@
         rgba(140, 40, 255, 1) 59%,
         rgba(0, 35, 255, 1) 76%,
         rgba(25, 160, 255, 1) 100%);
+    --container-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 main {
@@ -40,7 +41,7 @@ main {
     padding: 12px;
     background-color: white;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--container-shadow);
 }
 
 .search-filters {
@@ -211,7 +212,7 @@ main {
     padding: 20px;
     background-color: white;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--container-shadow);
     display: flex;
     align-items: center;
     justify-content: center;
