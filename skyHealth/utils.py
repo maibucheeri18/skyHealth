@@ -1,12 +1,29 @@
 from django.shortcuts import redirect
 from django.urls import reverse
 
+import json
+
 # returns context data for the navbar based on the user's role level
 def get_user_level_context(request):
-    if not request.user.is_authenticated: 
+    if not request.user.is_authenticated:
+
+        with open('./static/common.json', 'r') as f:
+            data = json.load(f)
+
+        if data['role'] == 'Engineer':
+            user_level = 0
+        elif data['role'] == 'Team Leader':
+            user_level = 1
+        elif data['role'] == 'Department Leader':
+            user_level = 2
+        elif data['role'] == 'Senior Manager':
+            user_level = 3
+        else:
+            user_level = 4
+        
         return {
             'is_logged_in': False,
-            'user_level': None,
+            'user_level': user_level,
             'user_role': None
         }
     
