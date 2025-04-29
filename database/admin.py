@@ -2,24 +2,13 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django import forms
 from django.contrib.auth.models import User
-from .models import (
-    Department, Team, UserProfile, HealthCheckCard, 
-    Session, Vote, HealthCheckVote
-)
+from .models import Department, Team, UserProfile, HealthCheckCard, Session
 
 class UserProfileForm(forms.ModelForm):
-    JOB_ROLE_CHOICES = [
-        ('Engineer', 'Engineer'),
-        ('Team Leader', 'Team Leader'),
-        ('Department Leader', 'Department Leader'),
-        ('Senior Manager', 'Senior Manager'),
-    ]
-
-    jobRole = forms.ChoiceField(choices=JOB_ROLE_CHOICES)
 
     class Meta:
         model = UserProfile
-        fields = ( 'jobRole', 'hireDate', 'team', 'is_engineer', 
+        fields = ('hireDate', 'team', 'is_engineer', 
         'is_team_leader','is_department_leader', 'is_senior_manager', 
         'securityQuestion_Answer1', 'securityQuestion_Answer2'
         )
@@ -30,17 +19,27 @@ class UserProfileInline(admin.StackedInline):
     can_delete = False
     verbose_name_plural = 'User Profiles'
 
+
 class CustomerUserAdmin(UserAdmin):
     inlines = (UserProfileInline,)
-    list_display = ('username', 'email', 'first_name', 'last_name', 'get_job_role', 'is_staff')
-    list_filter = ('profile__jobRole',)
+    list_display = ('username', 'email', 'first_name', 'last_name', 'get_role_status', 'is_staff')
 
-    def get_job_role(self, obj):
+    def get_role_status(self, obj):
         try:
-            return obj.profile.jobRole
+            profile = obj.profile
+            if profile.is_senior_manager:
+                return 'Senior Manager'
+            elif profile.is_department_leader:
+                return 'Department Leader'
+            elif profile.is_team_leader:
+                return 'Team Leader'
+            elif profile.is_engineer:
+                return 'Engineer'
+            else:
+                return 'No role assigned'
         except UserProfile.DoesNotExist:
             return '-'
-    get_job_role.short_description = 'Job Role'
+    get_role_status.short_description = 'Role'
 
 admin.site.unregister(User)
 admin.site.register(User, CustomerUserAdmin)
@@ -77,16 +76,4 @@ class HealthCheckCardAdmin(admin.ModelAdmin):
 class SessionAdmin(admin.ModelAdmin):
     list_display = ('sessionId', 'sessionDate', 'user')
     list_filter = ('sessionDate',)
-    search_fields = ('user__username',)
-
-@admin.register(Vote)
-class VoteAdmin(admin.ModelAdmin):
-    list_display = ('voteId', 'voteColour', 'progressIndicator', 'session')
-    list_filter = ('voteColour', 'progressIndicator')
-    search_fields = ('voteComment',)
-
-@admin.register(HealthCheckVote)
-class HealthCheckVoteAdmin(admin.ModelAdmin):
-    list_display = ('vote', 'card', 'dateCompleted', 'user', 'team', 'department')
-    list_filter = ('dateCompleted', 'team', 'department')
     search_fields = ('user__username',)
