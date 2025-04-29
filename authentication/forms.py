@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from database.models import UserProfile, Team, Department
 
+import datetime
+
 # Form for user login with username/email and password fields
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -31,13 +33,7 @@ class CreateAccountForm(forms.ModelForm):
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={'placeholder': 'Create your password'})
     )
-    job_role = forms.CharField(
-        widget=forms.TextInput(attrs={'placeholder': 'Job Role'})
-    )
-    hire_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'})
-    )
-    
+
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'username', 'password')
@@ -49,13 +45,13 @@ class CreateAccountForm(forms.ModelForm):
         if commit:
             user.save()
             # Create corresponding UserProfile
-            UserProfile.objects.create(
+            u = UserProfile(
                 user=user,
-                jobRole=self.cleaned_data['job_role'],
-                hireDate=self.cleaned_data['hire_date'],
+                hireDate=datetime.datetime.now(),
                 securityQuestion_Answer1='',  # Will be filled out in security questions form
                 securityQuestion_Answer2='',  # Will be filled out in security questions form
             )
+            u.save()
         return user
 
 # Form for setting security questions during account creation/recovery
