@@ -1,16 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django import forms
 from django.contrib.auth.models import User
 from .models import (
     Department, Team, UserProfile, HealthCheckCard, 
     Session, Vote, HealthCheckVote
 )
 
-class UserProfileInline(admin.StackedInline):
-    model = UserProfile
-    can_delete = False
-    verbose_name_plural = 'User Profiles'
-
+class UserProfileForm(forms.ModelForm):
     JOB_ROLE_CHOICES = [
         ('Engineer', 'Engineer'),
         ('Team Leader', 'Team Leader'),
@@ -18,21 +15,25 @@ class UserProfileInline(admin.StackedInline):
         ('Senior Manager', 'Senior Manager'),
     ]
 
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        if db_field.name == 'jobRole':
-            kwargs['choices'] = self.JOB_ROLE_CHOICES
-        return super().formfield_for_dbfield(db_field, **kwargs)
-    
-    fields = (
-        'jobRole', 'hireDate', 'team', 'is_engineer', 'is_team_leader',
-        'is_department_leader', 'is_senior_manager', 
+    jobRole = forms.ChoiceField(choices=JOB_ROLE_CHOICES)
+
+    class Meta:
+        model = UserProfile
+        fields = ( 'jobRole', 'hireDate', 'team', 'is_engineer', 
+        'is_team_leader','is_department_leader', 'is_senior_manager', 
         'securityQuestion_Answer1', 'securityQuestion_Answer2'
-    )
+        )
+
+class UserProfileInline(admin.StackedInline):
+    model = UserProfile
+    form = UserProfileForm
+    can_delete = False
+    verbose_name_plural = 'User Profiles'
 
 class CustomerUserAdmin(UserAdmin):
     inlines = (UserProfileInline,)
     list_display = ('username', 'email', 'first_name', 'last_name', 'get_job_role', 'is_staff')
-    list_filer = ('profile__jobRole',)
+    list_filter = ('profile__jobRole',)
 
     def get_job_role(self, obj):
         try:
