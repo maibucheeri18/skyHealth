@@ -100,6 +100,7 @@ def results(request):
                 case 3: 
                     user = UserProfile.objects.filter(user_id=request.user.id, is_senior_manager=True)
 
+            print(data)
             # engineer and their own team
             if data['type']:
                 for t in data['type']:
@@ -239,6 +240,7 @@ def results(request):
                                     amber += 1
 
                         votes.update({card[0].cardName: [red, amber, green]})
+            
             print(votes)
 
             filename = __make_graph(votes)
@@ -253,23 +255,43 @@ def results(request):
             print("Failed to load json")
 
     return render(request, 'results.html', context)
-
 def __make_graph(v):
     plt.clf()
     plt.rcParams['font.family'] = 'sans-serif'
-
+    
+    # Set fixed figure size to match requirements (convert pixels to inches)
+    # Assuming standard 100 DPI, 550px = 5.5 inches, 450px = 4.5 inches
+    plt.figure(figsize=(5.5, 4.5), dpi=100)
+    
+    # Count categories
+    num_categories = len(v)
+    
+    # Create the stacked bars
     for key, value in v.items():
         plt.bar(key, value[0], color='#DD1717')
         plt.bar(key, value[1], bottom=value[0], color='#F15A22')
         plt.bar(key, value[2], bottom=value[0]+value[1], color='#007e13')
-
-    plt.xticks(fontsize=10, fontweight='bold')
+    
+    # Handle x-axis labels based on number of categories
+    if 5 < num_categories <= 10:
+        # For 6-10 categories, rotate labels slightly for better fit
+        plt.xticks(fontsize=10, fontweight='bold', rotation=30, ha='right')
+    else:
+        # For 0-5 categories, keep labels horizontal
+        plt.xticks(fontsize=10, fontweight='bold')
+    
     plt.yticks(fontsize=10)
+    
+    # Adjust bottom margin when labels are rotated
+    if 5 < num_categories <= 10:
+        plt.subplots_adjust(bottom=0.15)
+    
     plt.tight_layout()
-
-    date = datetime.datetime.now().hour + datetime.datetime.now().minute+datetime.datetime.now().microsecond
-    filename = "fig-"+str(date)+".png"
-
-    plt.savefig('.//static//img//' + filename)
-
+    
+    # Generate unique filename
+    date = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+    filename = f"fig-{date}.png"
+    
+    plt.savefig('./static/img/' + filename)
+    
     return filename
