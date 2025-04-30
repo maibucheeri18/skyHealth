@@ -34,7 +34,7 @@ class VoteForm(forms.ModelForm):
 
     #field for user comment
     voteComment = forms.CharField(
-        required = True,
+        required=True,
         widget = forms.Textarea(attrs={
             'id': 'comment',
             'placeholder': 'Add your comment'

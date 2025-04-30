@@ -33,7 +33,7 @@
                             <!-- progress bar dynamically changes to indicate voting form prorm -->
                             <div class="startPage-progressBar">
                                 <div class="progress" style="border-radius: 10px">
-                                    <div class="progress-bar sky-gradient" role="progressbar" style="width: {{progress_percentage }};">
+                                    <div class="progress-bar sky-gradient" role="progressbar" style="width: {{progress_percentage}}%;">
                                     </div>
                                 </div>
                             </div>
@@ -120,12 +120,12 @@
                                     <!-- if on the first card, go back to startPage -->
                                     {% if card_index == 0 %}
                                         <a href="{% url 'startPage' %}">
-                                            <button class="HC-back-button">Back<span class="arrow-left"><i class='fa-solid fa-angle-left'></i></span></button>
+                                            <label class="HC-back-button">Back<span class="arrow-left"><i class='fa-solid fa-angle-left'></i></span></label>
                                         </a>
                                     {% else %}
-                                    <!-- else go to the previous card -->
+                                        <!-- else go to the previous card -->
                                         <a href="{% url 'healthCheckForm' card_index=card_index|add:'-1' %}">
-                                            <button class="HC-back-button">Back<span class="arrow-left"><i class='fa-solid fa-angle-left'></i></span></button>
+                                            <label class="HC-back-button">Back<span class="arrow-left"><i class='fa-solid fa-angle-left'></i></span></label>
                                         </a>
                                     {% endif %}
                                 </div>
@@ -134,12 +134,12 @@
                                     <!-- if on the last card, go to closingPage  -->
                                     {% if card_index == total_cards|add:'-1' %}
                                         <a href="{% url 'closingPage' %}">
-                                            <button class="HC-continue-button">Continue<span class="arrow-right"><i class='fa-solid fa-angle-right'></i></span></button>
+                                            <label class="HC-continue-button">Continue<span class="arrow-right"><i class='fa-solid fa-angle-right'></i></span></label>
                                         </a>
                                     {% else %}
                                     <!-- else go to the next card -->
                                         <a href="{% url 'healthCheckForm' card_index=card_index|add:'1' %}">
-                                            <button class="HC-continue-button">Continue<span class="arrow-right"><i class='fa-solid fa-angle-right'></i></span></button>
+                                            <label class="HC-continue-button">Continue<span class="arrow-right"><i class='fa-solid fa-angle-right'></i></span></label>
                                         </a>
                                     {% endif %}
                                 </div>
