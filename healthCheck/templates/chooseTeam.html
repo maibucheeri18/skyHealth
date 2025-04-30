@@ -11,7 +11,7 @@
     <link href="{% static 'healthcheck.css'%}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- javascript -->
-    <script src="{%static 'chooseSessionTeam.js' %}"></script>
+    <script src="{%static 'healthCheck.js' %}"></script>
 </head>
 <body>
     <header>
@@ -36,7 +36,7 @@
                 <h2 class="dropdown-title">Choose your team</h2>
                 <div class="chooseTeam-dropdown">
                     <div class="chooseTeam-select custom-dropdown">
-                        <div class="selected-option" onclick="toggleTeamDropdown()">Select team <span id='choose-arrow-down' class="choose-arrow-down"><i class="fa-solid fa-angle-down"></i></span></div>
+                        <div id="team" class="selected-option" onclick="toggleTeamDropdown()">Select team <span id='choose-arrow-down' class="choose-arrow-down"><i class="fa-solid fa-angle-down"></i></span></div>
                         <div class="dropdown-menu" id="teamDropdown">
                             {% for team in teams %}
                                 <div class="dropdown-item" onclick="selectTeam('{{team.teamId}}', '{{team.teamName}}')">
