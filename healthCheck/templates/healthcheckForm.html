@@ -19,104 +19,106 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="form-container">
+                <div class="col-12">
+                    <div class="form-container">
 
-                    <!-- healthcheck voting form -->
-                    <form method="post" action="">
-                        {% csrf_token %}
-                        <!-- displays non-field errors -->
-                        {{ form.vote_form.non_field_errors }}
-                        {{ form.card_id }}
+                        <!-- healthcheck voting form -->
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            <!-- displays non-field errors -->
+                            {{ form.vote_form.non_field_errors }}
+                            {{ form.card_id }}
 
-                        <!-- progress bar dynamically changes to indicate voting form prorm -->
-                        <div class="startPage-progressBar">
-                            <div class="progress" style="border-radius: 10px">
-                                <div class="progress-bar sky-gradient" role="progressbar" 
-                                    style="width: {{ progress_percentage }}%;">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- displays current cards name -->
-                        <div class="cardName-container">
-                            <h1 class="card-name">{{ card.cardName }}</h1>
-                        </div>
-                        
-                        <!-- content area: image, descriptions and dropdowns -->
-                        <div class="content-wrapper">
-                            <div class="left-container">
-                                <!-- traffic light image -->
-                                <img src="{% static 'img/trafficLight.jpg' %}" alt="Traffic Light" class="trafficLight-image">
-                                
-                                <!-- red and green color descrip for each specific card -->
-                                <!-- gets descriptions from database -->
-                                <div class="description"> 
-                                    <div class="red-description">
-                                        <p>{{ card.redColorDescrip }}, </p>
-                                    </div>
-                                    <div class="green-description">
-                                        <p>{{ card.greenColorDescrip }}, </p>
+                            <!-- progress bar dynamically changes to indicate voting form prorm -->
+                            <div class="startPage-progressBar">
+                                <div class="progress" style="border-radius: 10px">
+                                    <div class="progress-bar sky-gradient" role="progressbar" 
+                                        style="width: {{ progress_percentage }}%;">
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- vote input section: dropdowns and comment box -->
-                            <div class="right-container">
-                                <div class="dropdown-section">
-                                    <div class="select-options">
-                                        <div class="select-wrapper">
-                                            <!-- vote color selection dropdown -->
-                                            {{ form.vote_form.voteColour }}
-                                            <span class="arrow-down"><i class="fa-solid fa-angle-down"></i></span>
+                            
+                            <!-- displays current cards name -->
+                            <div class="cardName-container">
+                                <h1 class="card-name">{{ card.cardName }}</h1>
+                            </div>
+                            
+                            <!-- content area: image, descriptions and dropdowns -->
+                            <div class="content-wrapper">
+                                <div class="left-container">
+                                    <!-- traffic light image -->
+                                    <img src="{% static 'img/trafficLight.jpg' %}" alt="Traffic Light" class="trafficLight-image">
+                                    
+                                    <!-- red and green color descrip for each specific card -->
+                                    <!-- gets descriptions from database -->
+                                    <div class="description"> 
+                                        <div class="red-description">
+                                            <p>{{ card.redColorDescrip }}, </p>
                                         </div>
-
-                                        <div class="select-wrapper">
-                                            <!-- vote progress indicator dropdown -->
-                                             <!-- drop down options get retrieved from forms.py -->
-                                            {{ form.vote_form.progressIndicator }}
-                                            <span class="arrow-down"><i class="fa-solid fa-angle-down"></i></span>
+                                        <div class="green-description">
+                                            <p>{{ card.greenColorDescrip }}, </p>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <!-- comment box for users to write feedback -->
-                                    <div class="comment-section">
-                                        {{ form.vote_form.voteComment }}
+                                <!-- vote input section: dropdowns and comment box -->
+                                <div class="right-container">
+                                    <div class="dropdown-section">
+                                        <div class="select-options">
+                                            <div class="select-wrapper">
+                                                <!-- vote color selection dropdown -->
+                                                {{ form.vote_form.voteColour }}
+                                                <span class="arrow-down"><i class="fa-solid fa-angle-down"></i></span>
+                                            </div>
+
+                                            <div class="select-wrapper">
+                                                <!-- vote progress indicator dropdown -->
+                                                <!-- drop down options get retrieved from forms.py -->
+                                                {{ form.vote_form.progressIndicator }}
+                                                <span class="arrow-down"><i class="fa-solid fa-angle-down"></i></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- comment box for users to write feedback -->
+                                        <div class="comment-section">
+                                            {{ form.vote_form.voteComment }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    
-                        <!-- navigation buttons for form -->
-                        <div class="button-container">
-                            <div class="back-button-container">
-                                <!-- if on the first card, go back to startPage -->
-                                {% if card_index == 0 %}
-                                    <a href="{% url 'startPage' %}">
-                                        <button class="HC-back-button">Back<span class="arrow-left"><i class='fa-solid fa-angle-left'></i></span></button>
-                                    </a>
-                                {% else %}
-                                <!-- else go to the previous card -->
-                                    <a href="{% url 'healthCheckForm' card_index=card_index|add:'-1' %}">
-                                        <button class="HC-back-button">Back<span class="arrow-left"><i class='fa-solid fa-angle-left'></i></span></button>
-                                    </a>
-                                {% endif %}
-                            </div>
+                        
+                            <!-- navigation buttons for form -->
+                            <div class="button-container">
+                                <div class="back-button-container">
+                                    <!-- if on the first card, go back to startPage -->
+                                    {% if card_index == 0 %}
+                                        <a href="{% url 'startPage' %}">
+                                            <button class="HC-back-button">Back<span class="arrow-left"><i class='fa-solid fa-angle-left'></i></span></button>
+                                        </a>
+                                    {% else %}
+                                    <!-- else go to the previous card -->
+                                        <a href="{% url 'healthCheckForm' card_index=card_index|add:'-1' %}">
+                                            <button class="HC-back-button">Back<span class="arrow-left"><i class='fa-solid fa-angle-left'></i></span></button>
+                                        </a>
+                                    {% endif %}
+                                </div>
 
-                            <div class="continue-button-container">
-                                <!-- if on the last card, go to closingPage  -->
-                                {% if card_index == total_cards|add:'-1' %}
-                                    <a href="{% url 'closingPage' %}">
-                                        <button class="HC-continue-button">Continue<span class="arrow-right"><i class='fa-solid fa-angle-right'></i></span></button>
-                                    </a>
-                                {% else %}
-                                <!-- else go to the next card -->
-                                    <a href="{% url 'healthCheckForm' card_index=card_index|add:'1' %}">
-                                        <button class="HC-continue-button">Continue<span class="arrow-right"><i class='fa-solid fa-angle-right'></i></span></button>
-                                    </a>
-                                {% endif %}
+                                <div class="continue-button-container">
+                                    <!-- if on the last card, go to closingPage  -->
+                                    {% if card_index == total_cards|add:'-1' %}
+                                        <a href="{% url 'closingPage' %}">
+                                            <button class="HC-continue-button">Continue<span class="arrow-right"><i class='fa-solid fa-angle-right'></i></span></button>
+                                        </a>
+                                    {% else %}
+                                    <!-- else go to the next card -->
+                                        <a href="{% url 'healthCheckForm' card_index=card_index|add:'1' %}">
+                                            <button class="HC-continue-button">Continue<span class="arrow-right"><i class='fa-solid fa-angle-right'></i></span></button>
+                                        </a>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
