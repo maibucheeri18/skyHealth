@@ -1,3 +1,5 @@
+// Author: Student_B_Aathika_Ajmal_Basha
+
 document.addEventListener('DOMContentLoaded', function() {
     const actionButton = document.getElementById('action-button');
     const formOuterContainer = document.getElementById('form-outer-container');
