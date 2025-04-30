@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const checkedItems = dropdownMenu.querySelectorAll('input[type="checkbox"]:checked');
 
         const dropdownText = dropdownToggle.querySelector("span.dropdown-text");
+        console.log(dropdownToggle.childNodes);
 
         if(checkedItems.length === 0) {
             dropdownText.innerHTML = originalText;
@@ -153,8 +154,12 @@ document.addEventListener('DOMContentLoaded', function() {
         //find all checked checkboxes in visible filters
         const checkedBoxes = visibleFilters.querySelectorAll('input[type="checkbox"]:checked');
         
-        if (checkedBoxes.length === 0) {
-            alert('Please select at least one filter option');
+        if (checkedBoxes.length <= 1) {
+            const resultError = document.getElementById('resultsError');
+            const normalMessage = document.getElementById('resultsMessage');
+
+            resultError.style = "display: block;";
+            normalMessage.style = "display: none;";
             return;
         }
 
@@ -170,26 +175,24 @@ document.addEventListener('DOMContentLoaded', function() {
         checkedBoxes.forEach(function(checkbox) {
             const checkboxLabel = checkbox.closest('.checkbox-label');
             const dropdownContainer = checkbox.closest('.dropdown-container');
-            const labelText = dropdownContainer.querySelector('.dropdown-toggle').textContent.trim();
-            
+            const dropdownToggle = dropdownContainer.querySelector('.dropdown-toggle');
+            const type = dropdownToggle.attributes.getNamedItem('data-original-text').nodeValue.trim();
             const value = checkboxLabel.childNodes[2].nodeValue.trim();
 
+
             //determine which filter category this belongs to
-            if (labelText.includes('Type') || labelText.includes('Types')) {
+            if (type == 'Type' || type == 'Types') {
                 selectedFilters.type.push(value);
-            } else if (labelText.includes('Department')) {
+            } else if (type == 'Department') {
                 selectedFilters.department.push(value);
-            } else if (labelText.includes('Team')) {
+            } else if (type == 'Team') {
                 selectedFilters.team.push(value);
-            } else if (labelText.includes('Health Check Card')) {
+            } else if (type == 'Health Check Card') {
                 selectedFilters.healthCheckCard.push(value);
-            } else if (labelText.includes('Progress Over Time')) {
+            } else if (type == 'Progress Over Time') {
                 selectedFilters.progressOverTime.push(value.match(/\d+/)[0]);
             }
         })
-
-        
-        console.log('Selected filters:', selectedFilters);
 
         fetch('/results/submit', {
             method: 'POST',
