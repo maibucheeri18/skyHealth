@@ -1,11 +1,4 @@
-"""
-URL configuration for skyHealth project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-
-This file defines all the application-level URLs and maps them to their corresponding views.
-"""
+# Co-authored: Student_A_Annie_Moradians, Student_B_Aathika_Ajmal_Basha, Student_C_Mai_Bucheeri, Student_D_Diego_Santos_de_Freitas
 
 from django.contrib import admin
 from django.urls import path
