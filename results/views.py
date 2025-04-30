@@ -100,8 +100,6 @@ def results(request):
                 case 3: 
                     user = UserProfile.objects.filter(user_id=request.user.id, is_senior_manager=True)
 
-            print(user)
-
             # engineer and their own team
             if data['type']:
                 for t in data['type']:
@@ -172,8 +170,7 @@ def results(request):
                                         green += 1
                                     case 'amber':
                                         amber += 1
-
-                        votes.update({card[0].cardName: [red, amber, green]})
+                            votes.update({card[0].cardName: [red, amber, green]})
             
             # team leader and department leader 
             if data['team']:
@@ -258,8 +255,8 @@ def results(request):
     return render(request, 'results.html', context)
 
 def __make_graph(v):
+    plt.clf()
     plt.rcParams['font.family'] = 'sans-serif'
-    plt.rcParams['font.sans-serif'] = ['Roboto']
 
     for key, value in v.items():
         plt.bar(key, value[0], color='#DD1717')
