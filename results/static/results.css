@@ -93,6 +93,10 @@ main {
     border: 5px solid var(--sky-primary-blue);
 }
 
+.dropdown-toggle:focus {
+    border: 2px solid var(--sky-primary-blue)
+}
+
 .arrow-icon {
     transition: transform 0.3s ease;
 }
@@ -150,7 +154,7 @@ main {
 .dropdown-menu .dropdown-item:hover,
 .dropdown-menu .dropdown-item:focus,
 .dropdown-menu .dropdown-item.active {
-  background-color: transparent !important;
+  background-color: var(--dropdown-color-highlight) !important;
 }
 
 .search-buttons {
