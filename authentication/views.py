@@ -106,6 +106,10 @@ def security_questions2(request):
     - Store answers in user profile
     - Redirect to login after completion
     """
+
+    context = get_user_level_context(request)
+    user_level = context.get('user_level', 0)
+
     if request.method == 'POST':
         form = SetSecurityQuestionsForm(request.POST)
         if form.is_valid():
@@ -114,7 +118,27 @@ def security_questions2(request):
                 profile = UserProfile.objects.get(user=user)
                 profile.securityQuestion_Answer1 = form.cleaned_data['city']
                 profile.securityQuestion_Answer2 = form.cleaned_data['company']
-                profile.save()
+
+                if user_level == 0:
+                    profile.is_engineer = True
+                    profile.save()
+                    return redirect('chooseSession')
+                elif user_level == 1:
+                    profile.is_team_leader = True
+                    profile.save()
+                    return redirect('chooseSession')
+                elif user_level == 2:
+                    profile.is_department_leader = True
+                    profile.save()
+                    return redirect('results')
+                elif user_level == 3:
+                    profile.is_senior_manager = True
+                    profile.save()
+                    return redirect('results')
+                else:
+                    print("You idiot, use the correct area")
+
+
                 return redirect('login')
             except UserProfile.DoesNotExist:
                 UserProfile.objects.create(
