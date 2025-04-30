@@ -7,14 +7,12 @@ class VoteForm(forms.ModelForm):
 
     #options for color and progress fields
     colorOptions = [
-        ('', 'Select color'),
         ('green', 'Green'),
         ('amber', 'Amber'),
         ('red', 'Red'),
     ]
 
     progressOptions = [
-        ('', 'Select progress'),
         ('stable', 'Stable'),
         ('improving', 'Improving'),
         ('worse', 'Getting worse'),
