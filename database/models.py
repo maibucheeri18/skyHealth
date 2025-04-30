@@ -1,3 +1,5 @@
+# Author: Student_C_Mai_Bucheeri
+
 from django.db import models
 from django.contrib.auth.models import User
 

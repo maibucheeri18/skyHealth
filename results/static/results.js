@@ -1,3 +1,5 @@
+// Author: Student_C_Mai_Bucheeri
+
 document.addEventListener('DOMContentLoaded', function() {
     //initialize all dropdowns
     const dropdownToggles = document.querySelectorAll('.dropdown-toggle');

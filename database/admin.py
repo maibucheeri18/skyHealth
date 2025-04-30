@@ -1,3 +1,5 @@
+# Author: Student_C_Mai_Bucheeri
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django import forms
