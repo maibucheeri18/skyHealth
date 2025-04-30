@@ -46,7 +46,7 @@ admin.site.register(User, CustomerUserAdmin)
 
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
-    list_display = ('departmentName', 'numOfTeam', 'departmentLocation', 'deptCreateDate', 'get_department_leader')
+    list_display = ('departmentName', 'numOfTeams', 'departmentLocation', 'deptCreateDate', 'get_department_leader')
     search_fields = ('departmentName',)
 
     def get_department_leader(self, obj):
