@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class Department(models.Model):
     departmentId = models.AutoField(primary_key=True)
     departmentName = models.CharField(max_length=50, unique=True)
-    numOfTeam = models.IntegerField()
+    numOfTeams = models.IntegerField()
     deptCreateDate = models.DateField()
     departmentLocation = models.CharField(max_length=50)
     leader = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, related_name='led_department')
