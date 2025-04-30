@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, logout as auth_logout
 from django.http import HttpResponse
-from database.models import HealthCheckCard, HealthCheckVote, UserProfile, Team, Session, Vote
+from database.models import Department, HealthCheckCard, HealthCheckVote, UserProfile, Team, Session, Vote
 from .forms import HealthCheckVoteForm
 
 from skyHealth.utils import get_user_level_context
@@ -111,7 +112,7 @@ def healthCheckForm(request, card_index=0):
                     vote=v,
                     dateCompleted=date.today(),
                     user=request.user,
-                    team=null if len(Team.objects.filter(teamId=up.team.teamId)) == 0 else Team.objects.filter(teamId=up.team.teamId)
+                    team= None if len(Team.objects.filter(teamId=up.team.teamId)) == 0 else Team.objects.filter(teamId=up.team.teamId).first()
                 )
                 card_vote.save()
             if user_level == 2:
