@@ -14,7 +14,7 @@ from datetime import date
 @login_required
 def chooseSession(request):
     if request.method == 'POST':
-        session_id = request.POST.get('session_id')
+        session_id = request.POST.get('sessionId')
         
         if session_id:
             #saving sessionId into user's session storage
@@ -73,12 +73,16 @@ def healthCheckForm(request, card_index=0):
         
         if form.is_valid():
             # saves vote & health check vote
-
+            department = []
+            up = []
+            
             if user_level in [0, 1]:
-                up = UserProfile.objects.filter(id=request.user.id)
+                up = UserProfile.objects.filter(user=request.user)
+                print(request.user.id)
+                print(up)
             elif user_level in [2]:
                 department = Department.objects.filter(leader=request.user)
-            
+
 
             if len(up) != 0:
                 up = up[0]
@@ -86,7 +90,7 @@ def healthCheckForm(request, card_index=0):
                 department = department[0]
             else:
                 print("User profile does not exist")
-                return
+                return HttpResponse('Bad Request')
 
             v = Vote(
                 voteColour=request.POST['voteColour'],
