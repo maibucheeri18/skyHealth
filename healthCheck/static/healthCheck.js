@@ -1,3 +1,5 @@
+// Author: Student_A_Annie_Moradians
+
 // Make these functions globally accessible
 function toggleTeamDropdown() {
     document.getElementById("teamDropdown").classList.toggle("show");

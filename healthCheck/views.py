@@ -1,3 +1,5 @@
+# Author: Student_A_Annie_Moradians
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, logout as auth_logout

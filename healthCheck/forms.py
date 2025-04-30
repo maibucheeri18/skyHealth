@@ -1,3 +1,5 @@
+# Author: Student_A_Annie_Moradians
+
 from django import forms
 from database.models import Vote, Session, HealthCheckVote, HealthCheckCard
 from datetime import date
