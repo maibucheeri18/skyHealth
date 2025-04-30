@@ -94,7 +94,7 @@ main {
 }
 
 .dropdown-toggle:focus {
-    border: 2px solid var(--sky-primary-blue)
+    border: 2px solid var(--sky-primary-blue);
 }
 
 .arrow-icon {
@@ -222,8 +222,8 @@ main {
     justify-content: center;
 }
 
-.results-message {
-    text-align: center;
+.results-image {
+    align-items: center;
 }
 
 .gradient-text {
@@ -233,4 +233,12 @@ main {
     color: transparent;
     font-size: 32px;
     font-weight: bold;
+    text-align: center;
+}
+
+.results-error .error-text {
+    color: var(--error);
+    font-size: 32px;
+    font-weight: 800;
+    text-align: center;
 }
