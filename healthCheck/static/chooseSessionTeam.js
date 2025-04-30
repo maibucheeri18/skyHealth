@@ -7,12 +7,6 @@ function toggleTeamDropdown() {
                                                      '<i class="fa-solid fa-angle-down"></i>';
 }
 
-function selectTeam(id, name) {
-    document.querySelector(".selected-option").innerHTML = name + '<span class="choose-arrow-down"><i class="fa-solid fa-angle-down"></i></span>';
-    document.getElementById("team-select").value = id;
-    document.getElementById("teamDropdown").classList.remove("show");
-}
-
 function toggleSessionDropdown() {
     document.getElementById("sessionDropdown").classList.toggle("show");
     const selectedOption = document.getElementById('choose-arrow-down');
@@ -21,8 +15,14 @@ function toggleSessionDropdown() {
                                                      '<i class="fa-solid fa-angle-down"></i>';
 }
 
-function selectSession(id, name) {
+function selectTeam(id, name) {
     document.querySelector(".selected-option").innerHTML = name + '<span class="choose-arrow-down"><i class="fa-solid fa-angle-down"></i></span>';
+    document.getElementById("team-select").value = id;
+    document.getElementById("teamDropdown").classList.remove("show");
+}
+
+function selectSession(id, date) {
+    document.getElementById("session").innerHTML = date + '<span class="choose-arrow-down"><i class="fa-solid fa-angle-down"></i></span>';
     document.getElementById("session-select").value = id;
     document.getElementById("sessionDropdown").classList.remove("show");
 }
@@ -36,21 +36,21 @@ document.addEventListener('DOMContentLoaded', function() {
         
         sessionSelect.addEventListener('focus', function() {
             if (sessionArrow) {
-                sessionArrow.innerHTML = '<i class="fa-solid fa-angle-up"></i>';
+                sessionArrow.innerHTML = '<span class="choose-arrow-down"><i class="fa-solid fa-angle-up"></i></span>';
                 this.classList.add('active');
             }
         });
         
         sessionSelect.addEventListener('blur', function() {
             if (sessionArrow) {
-                sessionArrow.innerHTML = '<i class="fa-solid fa-angle-down"></i>';
+                sessionArrow.innerHTML = '<span class="choose-arrow-down"><i class="fa-solid fa-angle-down"></i></span>';
                 this.classList.remove('active');
             }
         });
         
         sessionSelect.addEventListener('change', function() {
             if (sessionArrow) {
-                sessionArrow.innerHTML = '<i class="fa-solid fa-angle-down"></i>';
+                sessionArrow.innerHTML = '<span class="choose-arrow-down"><i class="fa-solid fa-angle-down"></i></span>';
                 this.blur();
             }
         });
@@ -61,13 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (teamSelect) {
         const teamArrow = teamSelect.parentElement.querySelector('.choose-arrow-down');
         
-        teamSelect.addEventListener('click', function() {
-            console.log('a')
-            if (teamArrow) {
-                teamArrow.innerHTML = teamArrow
-                this.classList.add('active');
-            }
-        })
 
         teamSelect.addEventListener('focus', function() {
             if (teamArrow) {
