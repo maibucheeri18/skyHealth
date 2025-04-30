@@ -18,27 +18,27 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="form-container">
+                <div class="col-12">
+                    <div class="form-container">
+                        <div class="closingPage-progressBar">
+                            <div class="progress" style="border-radius: 10px">
+                                <div class="progress-fill closing-fill"></div>
+                            </div>
+                        </div>
 
-                    <div class="closingPage-progressBar">
-                        <div class="progress" style="border-radius: 10px">
-                            <div class="progress-fill closing-fill"></div>
+                            <div class="closing-heading-container">
+                                <h1 class="page-heading">Thank you! We have received your vote!</h1>
+                            </div>
+                        
+                        <div class="closing-button-container">
+                            <a href="{% url 'results' %}">
+                                <button class="results-button">View Results</button>
+                            </a>
+                            <a href="{% url 'log_off'%}">
+                                <button class="logOff-button">Log Off</button>
+                            </a>
                         </div>
                     </div>
-
-                        <div class="closing-heading-container">
-                            <h1 class="page-heading">Thank you! We have received your vote!</h1>
-                        </div>
-                    
-                    <div class="closing-button-container">
-                        <a href="{% url 'results' %}">
-                            <button class="results-button">View Results</button>
-                        </a>
-                        <a href="{% url 'log_off'%}">
-                            <button class="logOff-button">Log Off</button>
-                        </a>
-                    </div>
-
                 </div>
             </div>
         </div>
