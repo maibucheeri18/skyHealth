@@ -185,9 +185,9 @@ document.addEventListener('DOMContentLoaded', function() {
             //determine which filter category this belongs to
             if (type == 'Type' || type == 'Types') {
                 selectedFilters.type.push(value);
-            } else if (type == 'Department') {
+            } else if (type == 'Department' || type == 'Departments') {
                 selectedFilters.department.push(value);
-            } else if (type == 'Team') {
+            } else if (type == 'Team' || type == 'Teams') {
                 selectedFilters.team.push(value);
             } else if (type == 'Health Check Card') {
                 selectedFilters.healthCheckCard.push(value);
