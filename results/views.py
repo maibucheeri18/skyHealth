@@ -141,7 +141,11 @@ def results(request):
                                     case 'amber':
                                         amber += 1
                     
-                            votes.update({card[0].cardName: [red, amber, green]})
+                            if card[0].cardName in votes:
+                                name = card[0].cardName
+                                votes[name] = [votes[name][0] + red, votes[name][1] + amber, votes[name][2] + green]
+                            else:
+                                votes.update({card[0].cardName: [red, amber, green]})
 
                     else:
                         team = Team.objects.filter(teamName = t)
@@ -176,7 +180,11 @@ def results(request):
                                         green += 1
                                     case 'amber':
                                         amber += 1
-                            votes.update({card[0].cardName: [red, amber, green]})
+                            if card[0].cardName in votes:
+                                name = card[0].cardName
+                                votes[name] = [votes[name][0] + red, votes[name][1] + amber, votes[name][2] + green]
+                            else:
+                                votes.update({card[0].cardName: [red, amber, green]})
             
             # team leader and department leader 
             if data['team']:
@@ -185,7 +193,7 @@ def results(request):
 
                     for c in data['healthCheckCard']:
                         card = HealthCheckCard.objects.filter(cardName = c)
-                        checkVotes = HealthCheckVote.objects.filter(team = team[0], department=team[0].department, card = card[0])
+                        checkVotes = HealthCheckVote.objects.filter(team = team[0], card = card[0])
 
                         red = 0
                         amber = 0
@@ -210,7 +218,11 @@ def results(request):
                                 case 'amber':
                                     amber += 1
 
-                        votes.update({card[0].cardName: [red, amber, green]})
+                        if card[0].cardName in votes:
+                            name = card[0].cardName
+                            votes[name] = [votes[name][0] + red, votes[name][1] + amber, votes[name][2] + green]
+                        else:
+                            votes.update({card[0].cardName: [red, amber, green]})
 
             # senior manager
             if data['department']:
@@ -244,7 +256,11 @@ def results(request):
                                 case 'amber':
                                     amber += 1
 
-                        votes.update({card[0].cardName: [red, amber, green]})
+                        if card[0].cardName in votes:
+                            name = card[0].cardName
+                            votes[name] = [votes[name][0] + red, votes[name][1] + amber, votes[name][2] + green]
+                        else:
+                            votes.update({card[0].cardName: [red, amber, green]})
             
             print(votes)
 
@@ -264,8 +280,6 @@ def __make_graph(v):
     plt.clf()
     plt.rcParams['font.family'] = 'sans-serif'
     
-    # Set fixed figure size to match requirements (convert pixels to inches)
-    # Assuming standard 100 DPI, 550px = 5.5 inches, 450px = 4.5 inches
     plt.figure(figsize=(5.5, 4.5), dpi=100)
     
     # Count categories
@@ -279,15 +293,12 @@ def __make_graph(v):
     
     # Handle x-axis labels based on number of categories
     if 5 < num_categories <= 10:
-        # For 6-10 categories, rotate labels slightly for better fit
         plt.xticks(fontsize=10, fontweight='bold', rotation=30, ha='right')
     else:
-        # For 0-5 categories, keep labels horizontal
         plt.xticks(fontsize=10, fontweight='bold')
     
     plt.yticks(fontsize=10)
     
-    # Adjust bottom margin when labels are rotated
     if 5 < num_categories <= 10:
         plt.subplots_adjust(bottom=0.15)
     
