@@ -60,10 +60,10 @@ def login_view(request):
                     auth_login(request, user)
                     return redirect('results')
                 else:
-                    print("You idiot, use the correct area")
+                    print("Use the correct area")
                 
             else:
-                messages.error(request, 'Invalid username/email or password')
+                print('Invalid username/email or password')
     else:
         form = LoginForm()
 
