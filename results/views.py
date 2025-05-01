@@ -108,11 +108,14 @@ def results(request):
                 for t in data['type']:
 
                     if t == "Individual":
-                        user_profile = UserProfile.objects.filter(user_id=request.user.id, is_engineer=True)
+                        user_profile = UserProfile.objects.filter(user_id=request.user.id)
 
                         for c in data['healthCheckCard']:
                             card = HealthCheckCard.objects.filter(cardName = c)
-
+                            
+                            print(card)
+                            print(user_profile)
+                            
                             checkVotes = HealthCheckVote.objects.filter(user = user_profile[0].user, card = card[0])
 
                             red = 0
