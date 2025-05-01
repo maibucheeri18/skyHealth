@@ -1,0 +1,188 @@
+/* Author: Student_D_Diego_Santos_de_Freitas */
+* {
+    font-family: "Roboto", sans-serif;
+}
+
+:root {
+    --coolgray-90: rgba(33, 39, 42, 1);
+    --sky-primary-blue: rgba(0, 15, 245, 1);
+    --sky-primary-blue-hover: #000CC4;
+    --form-input-text: rgba(77, 77, 77, 1);
+    --container-outline: rgba(74, 74, 74, 1);
+    --not-applicable: rgba(204, 204, 204, 1);
+    --error: rgba(221, 23, 23, 1);
+    --error-hover: #B11212;
+    --positive: rgba(0, 126, 19, 1);
+    --dropdown-choice: rgba(0, 0, 0, 1);
+    --dropdown-color-highlight: rgba(229, 229, 229, 1);
+    --amber: rgba(241, 90, 34, 1);
+    --sky-gradient: linear-gradient(
+        to right,
+        rgba(255, 140, 0, 1) 0%,
+        rgba(248, 0, 50, 1) 17%,
+        rgba(255, 0, 160, 1) 35%,
+        rgba(140, 40, 255, 1) 59%,
+        rgba(0, 35, 255, 1) 76%,
+        rgba(25, 160, 255, 1) 100%);
+    --container-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+main {
+    min-height: calc(100vh - 112px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    max-width: 1200px;
+    background-color: white;
+    justify-content: center;
+    align-content: center;
+}
+
+.loginImage {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.loginImage img {
+    max-width: 70%;
+    height: auto;
+    margin-left: 100px;
+}
+
+.loginForm, .accountForm, .securityForm, .resetForm {
+    flex: 1;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: var(--container-shadow);
+    height: auto;
+    min-height: fit-content; 
+    margin-right: 140px;
+    max-width: 400px;
+}
+
+.loginTitle, .accountTitle, .securityTitle, .resetTitle {
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+    background: var(--sky-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.securityDescription, .resetDescription {
+    color: black;
+    font-size: 15px;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.login-field, .question-field, .account-field, .password-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.questionLabel {
+    color: var(--sky-primary-blue);
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.passwordLabel {
+    color: var(--sky-primary-blue);
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.loginLabel {
+    font-weight: bold;
+}
+
+.formLinks {
+    margin-bottom: 20px;
+}
+
+.formLinks a {
+    text-decoration: none;
+    color: var(--sky-primary-blue);
+}
+
+.loginLink {
+    color: #000ff5;
+}
+
+.createLink {
+    color: var(--sky-primary-blue);
+    font-weight: bold;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.question1, .question2 {
+    color: var(--sky-primary-blue);
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    padding: 12px 15px;
+    border: 1px solid var(--container-outline);
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+}
+
+input[type="text"]:focus, 
+input[type="password"]:focus,
+input[type="email"]:focus {
+    border: 2px solid var(--sky-primary-blue);
+    outline: none;
+}
+
+.forgotPassword {
+    color: var(--sky-primary-blue);
+    text-decoration: none;
+    font-size: 14px;
+    align-self: flex-start;
+    font-weight: bold;
+}
+
+.loginButton, .continueButton, .signupButton, .resetButton {
+    background-color: var(--sky-primary-blue);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+}
+
+.loginButton:hover, .continueButton:hover, .signupButton:hover, .resetButton:hover {
+    background-color: var(--sky-primary-blue-hover);
+}

@@ -1,0 +1,478 @@
+/* Author: Student_A_Annie_Moradians */
+
+* {
+    font-family: "Roboto", sans-serif;
+}
+
+:root {
+    --coolgray-90: rgba(33, 39, 42, 1);
+    --sky-primary-blue: rgba(0, 15, 245, 1);
+    --sky-primary-blue-hover: #000CC4;
+    --form-input-text: rgba(77, 77, 77, 1);
+    --container-outline: rgba(74, 74, 74, 1);
+    --not-applicable: rgba(204, 204, 204, 1);
+    --error: rgba(221, 23, 23, 1);
+    --error-hover: #B11212;
+    --positive: rgba(0, 126, 19, 1);
+    --dropdown-choice: rgba(0, 0, 0, 1);
+    --dropdown-color-highlight: rgba(229, 229, 229, 1);
+    --amber: rgba(241, 90, 34, 1);
+    --sky-gradient: linear-gradient(
+        to right,
+        rgba(255, 140, 0, 1) 0%,
+        rgba(248, 0, 50, 1) 17%,
+        rgba(255, 0, 160, 1) 35%,
+        rgba(140, 40, 255, 1) 59%,
+        rgba(0, 35, 255, 1) 76%,
+        rgba(25, 160, 255, 1) 100%);
+    --container-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+main {
+    min-height: calc(100vh - 112px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden;
+} 
+
+/* COMMON CONTAINER STYLES */
+.form-container{
+    max-width: 1200px;
+    min-height: calc(92vh - 112px);
+    margin: 0 auto;
+    padding: 12px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: var(--container-shadow);
+}
+
+/* PROGRESS BAR STYLES */
+.progress{
+    width: 1126px !important;
+    height: 15px;
+    border-radius: 100px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.progress-fill{
+    height: 100%;
+    transition: width 0.4s ease-in-out;
+}
+
+.start-fill{
+    width: 0%;
+}
+
+.closing-fill{
+    width: 100%;
+    background: var(--sky-gradient);
+}
+
+.sky-gradient {
+    background: var(--sky-gradient);
+    height: 100%;
+    border-radius: 8px;
+}
+
+/* GRADIENT TEXT STYLING */
+.page-heading, .choose-title {
+    font-weight: bold;
+    background: var(--sky-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* HEADING CONTAINER STYLES */
+.start-heading-container, .closing-heading-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-heading-container {
+    margin-top: 245px;
+}
+
+.closing-heading-container {
+    margin-top: 230px;
+}
+
+.page-heading {
+    text-align: center;
+}
+
+/* BUTTON CONTAINER STYLES */
+.start-button-container {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.closing-button-container {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* BUTTON STYLES */
+.start-button, .results-button, .HC-back-button, .HC-continue-button, 
+.chooseSession-button, .chooseTeam-button {
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Primary blue buttons */
+.start-button, .results-button, .HC-back-button, .HC-continue-button,
+.chooseSession-button, .chooseTeam-button {
+    color: white;
+    background-color: var(--sky-primary-blue);
+    border: none;
+}
+
+.start-button, .HC-back-button, .HC-continue-button {
+    padding: 8px 0px;
+    width: 160px;
+    font-weight: 500;
+    position: relative;
+}
+
+.results-button {
+    width: 160px;
+    padding: 10px 0px;
+}
+
+.chooseSession-button, .chooseTeam-button {
+    padding: 12px;
+    font-weight: 600;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    text-decoration: none;
+}
+
+/* Outline button */
+.logOff-button {
+    width: 160px;
+    padding: 8px 0px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+    color: var(--sky-primary-blue);
+    border: 2px solid var(--sky-primary-blue);
+    background-color: white;
+}
+
+/* Button positioning */
+.start-button {
+    margin-right: 25px;
+    margin-top: 190px;
+}
+
+.HC-continue-button {
+    margin-right: 25px;
+}
+
+.HC-back-button {
+    margin-left: 25px;
+}
+
+/* Button hover states */
+.start-button:hover, .results-button:hover, .HC-continue-button:hover, 
+.HC-back-button:hover, .chooseSession-button:hover, .chooseTeam-button:hover {
+    background-color: var(--sky-primary-blue-hover);
+}
+
+.logOff-button:hover {
+    font-weight: bold;
+}
+
+/* Button arrow positioning */
+.start-button .arrow-right, .HC-continue-button .arrow-right {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.HC-back-button .arrow-left {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* CHOOSE SESSION & CHOOSE TEAM STYLES */
+.container {
+    display: flex;
+    max-width: 1200px;
+    background-color: #fff;
+    justify-content: center;
+    align-content: center;
+}
+
+.choose-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px;
+    margin-top: 25px;
+    margin-right: 60px;
+}
+
+.choose-description {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--coolgray-90);
+    margin: 0; 
+    text-align: left; 
+}
+
+.dropdown-container {
+    flex: 1;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: var(--container-shadow);
+    min-height: fit-content; 
+    max-width: 400px;
+    margin-right: 35px;
+}
+
+.dropdown-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--sky-primary-blue);
+    margin-bottom: 12px;
+}
+
+.choose-title {
+    font-size: 40px;
+    margin-left: 0px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* DROPDOWN STYLES - COMMON */
+.chooseSession-dropdown, .chooseTeam-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.selected-option {
+    width: 100%;
+    padding: 17px 12px;
+    text-align: left;
+    background-color: white;
+    border: 1px solid var(--container-outline);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--form-input-text);
+    appearance: none;
+}
+
+.custom-dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    width: 100%;
+    background-color: white;
+    border: 1px solid var(--container-outline) !important;
+    margin-top: 5px !important;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    display: none;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.dropdown-item label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+    color: var(--dropdown-choice);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus,
+.dropdown-menu .dropdown-item.active {
+    background-color: var(--dropdown-color-highlight) !important;
+}
+
+
+/* Choose session/team dropdown specific */
+.choose-arrow-down {
+    position: absolute;
+    right: 15px;
+    top: 54%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+/* Focus styles for all dropdowns */
+.chooseSession-select .selected-option:focus,
+.chooseTeam-select .selected-option:focus,
+#voteColorSelected:focus,
+
+#progressIndicatorSelected:focus-visible {
+    border: 2px solid var(--sky-primary-blue) !important;
+    outline: none;
+}
+/* .custom-dropdown:focus
+.selected-option:focus-visible {
+    border: 2px solid var(--sky-primary-blue) !important;
+    outline: none;
+} */
+
+.choose-arrow-down i.fa-angle-up,
+.choose-arrow-down i.fa-angle-down {
+    transition: transform 0.3s ease;
+}
+
+/* Link styling */
+.button-link {
+    text-decoration: none;
+}
+
+/* HEALTHCHECK FORM STYLES */
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.left-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.right-container {
+    padding-bottom: 30px;
+    padding-right: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.trafficLight-image {
+    width: 280px;
+    height: auto;
+    margin-top: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 50px;
+}
+
+.comment-section textarea {
+    width: 483px;
+    height: 184px;
+    margin-top: 70px;
+    border-radius: 5px;
+    padding: 15px;
+    margin-left: 104px;
+}
+
+/* Healthcheck form specific dropdown styles */
+.select-wrapper .selected-option {
+    width: 230px;
+    padding: 12px 12px;
+    height: 50px;
+    position: relative;
+}
+
+.select-wrapper:first-child {
+    margin-right: 22px;
+} 
+
+.select-options {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    top: 55px;
+    margin-left: 104px;
+    bottom: 60px;
+}
+
+.arrow-down {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.arrow-left {
+    position: absolute;
+    top: 50%;  
+    left: 100%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Description positioning for traffic light */
+.description {
+    position: relative;
+    top: 60px;  
+}
+
+.red-description {
+    position: absolute;
+    bottom: 232px; 
+    left: 300px;  
+}
+
+.green-description {
+    position: absolute;
+    bottom: 60px;
+    left: 300px; 
+}
+
+.card-name {
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--form-input-text);
+    margin-top: 30px;
+    margin-left: 30px;
+}

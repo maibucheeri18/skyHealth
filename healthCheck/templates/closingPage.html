@@ -1,0 +1,53 @@
+<!-- Author: Student_A_Annie_Moradians  -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Check Closing Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- webpage CSS -->
+    <link href="{% static 'healthcheck.css'%}" rel="stylesheet">
+</head>
+<body>
+    <header>
+        {% include 'navbar.html' %}
+    </header>
+
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-container">
+                        <div class="closingPage-progressBar">
+                            <div class="progress" style="border-radius: 10px">
+                                <div class="progress-fill closing-fill"></div>
+                            </div>
+                        </div>
+
+                            <div class="closing-heading-container">
+                                <h1 class="page-heading">Thank you! We have received your vote!</h1>
+                            </div>
+                        
+                        <div class="closing-button-container">
+                            <a href="{% url 'results' %}">
+                                <button class="results-button">View Results</button>
+                            </a>
+                            <a href="{% url 'log_off'%}">
+                                <button class="logOff-button">Log Off</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        {% include 'footer.html' %}
+    </footer>
+</body>
+</html>

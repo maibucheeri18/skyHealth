@@ -1,0 +1,115 @@
+/* Author: Student_B_Aathika_Ajmal_Basha */
+
+.form-control {
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+}
+.form-control[readonly] {
+    background-color: #f8f9fa;
+    opacity: 0.8;
+}
+.form-label {
+margin-bottom: 6px;
+font-size: 14px;
+color: #000FF5;
+font-weight: bolder;
+}
+.form-control.is-invalid {
+    border-color: #dc3545;
+    background-image: none; /* Remove Bootstrap's default validation icon */
+}
+.invalid-feedback {
+color: #dc3545;
+font-size: 12px;
+margin-top: -8px;
+margin-bottom: 10px;
+}
+#action-button {
+    background-color: #000FF5;
+    border-color: #000FF5;
+    border-radius: 4px;
+    padding: 10px 0;
+    font-weight: 500;
+    width: 100%;
+}
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+.edit-mode {
+    border: 2px solid #000FF5 !important;
+    border-radius: 8px !important;
+}
+
+.profile-flex-container {
+display: flex;
+align-items: center; /* Center vertically */
+justify-content: center; /* Center horizontally */
+gap: 30px; /* Space between image and form */
+flex-wrap: wrap; /* Stack on smaller screens */
+background-color: #fff;
+border-radius: 8px;
+margin: auto auto 0 auto; /* Top margin and center horizontally */
+max-width: 900px; /* Limit maximum width */
+}
+
+.profile-picture-container {
+width: 458px;
+height: 444px;
+border-radius: 8px; /* slight curve if you want */
+overflow: hidden;
+background-color: #ffffff;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+
+.avatar-container {
+width: 458px;
+height: 444px;
+border-radius: 50%;
+overflow: hidden;
+display: flex;
+justify-content: center;
+align-items: center;
+padding-right: 70px;
+}
+
+.avatar-container img {
+width: 458px;
+height: 444px;
+object-fit: cover;
+}
+.profile-details-container {
+flex: 1 1 400px; /* Allow it to grow but with base width */
+max-width: 500px; /* Set a maximum width */
+padding-left: 50px;
+padding-bottom: 70px;
+}
+.accountTitle{
+text-align: center;
+font-size: 24px;
+margin-bottom: 20px;
+font-weight: 600;
+background: linear-gradient(
+to right,
+rgba(255, 140, 0, 1) 0%,
+rgba(248, 0, 50, 1) 17%,
+rgba(255, 0, 160, 1) 35%,
+rgba(140, 40, 255, 1) 59%,
+rgba(0, 35, 255, 1) 76%,
+rgba(25, 160, 255, 1) 100%
+);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+display: inline-block;
+}
+
+.container {
+max-width: 420px; 
+margin: 40px auto;
+}
