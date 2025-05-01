@@ -23,13 +23,25 @@ def chooseSession(request):
             request.session['session_id'] = session_id
             return redirect('chooseTeam')
 
-    sessions = Session.objects.all()   #retrieving all session objects
+    sessions = Session.objects.filter(user=request.user)
     return render(request, 'chooseSession.html', {'sessions': sessions})
 
 #View for selecting a team
 @login_required
 def chooseTeam(request):
-    teams = Team.objects.all()
+    try: 
+        user_profile = UserProfile.objects.get(user=request.user)
+        if user_profile.is_department_leader or user_profile.is_senior_manager:
+            teams = Team.objects.all()
+        else:
+            if user_profile.team:
+                department = user_profile.team.department
+                teams = Team.objects.filter(department=department)
+            else:
+                teams = Team.objects.none()
+    except UserProfile.DoesNotExist:
+        teams = Team.objects.none()
+
     return render(request, 'chooseTeam.html', {'teams': teams})
 
 #View for healthCheck startPage
@@ -68,7 +80,10 @@ def healthCheckForm(request, card_index=0):
             return redirect('chooseSession')
     else:
         return redirect('chooseSession')
-    
+
+    print(request.POST)
+    print(request.body)
+
     if request.method == 'POST':
         # process form submission
         form = HealthCheckVoteForm(request.POST, session=current_session, card=current_card)
@@ -102,11 +117,11 @@ def healthCheckForm(request, card_index=0):
             )
             v.save()
 
-            card = HealthCheckCard.objects.filter(cardId=form.cleaned_data['card_id'])
+            card = HealthCheckCard.objects.get(cardId=form.cleaned_data['card_id'])
 
             if user_level == 0:
                 card_vote = HealthCheckVote(
-                    card=card[0],
+                    card=card,
                     vote=v,
                     dateCompleted=date.today(),
                     user=request.user,
@@ -114,7 +129,7 @@ def healthCheckForm(request, card_index=0):
                 card_vote.save()
             if user_level == 1:
                 card_vote = HealthCheckVote(
-                    card=card[0],
+                    card=card,
                     vote=v,
                     dateCompleted=date.today(),
                     user=request.user,
@@ -123,7 +138,7 @@ def healthCheckForm(request, card_index=0):
                 card_vote.save()
             if user_level == 2:
                 card_vote = HealthCheckVote(
-                    card=card[0],
+                    card=card,
                     vote=v,
                     dateCompleted=date.today(),
                     department=department
