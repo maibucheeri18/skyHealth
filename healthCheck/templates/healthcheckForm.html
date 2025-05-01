@@ -122,12 +122,12 @@
                                     <!-- if on the first card, go back to startPage -->
                                     {% if card_index == 0 %}
                                         <a href="{% url 'startPage' %}">
-                                            <label class="HC-back-button">Back<span class="arrow-left"><i class='fa-solid fa-angle-left'></i></span></label>
+                                            <button class="HC-back-button">Back<span class="arrow-left"><i class='fa-solid fa-angle-left'></i></span></button>
                                         </a>
                                     {% else %}
                                         <!-- else go to the previous card -->
                                         <a href="{% url 'healthCheckForm' card_index=card_index|add:'-1' %}">
-                                            <label class="HC-back-button">Back<span class="arrow-left"><i class='fa-solid fa-angle-left'></i></span></label>
+                                            <button class="HC-back-button">Back<span class="arrow-left"><i class='fa-solid fa-angle-left'></i></span></button>
                                         </a>
                                     {% endif %}
                                 </div>
@@ -136,12 +136,12 @@
                                     <!-- if on the last card, go to closingPage  -->
                                     {% if card_index == total_cards|add:'-1' %}
                                         <a href="{% url 'closingPage' %}">
-                                            <label class="HC-continue-button">Continue<span class="arrow-right"><i class='fa-solid fa-angle-right'></i></span></label>
+                                            <button class="HC-continue-button">Continue<span class="arrow-right"><i class='fa-solid fa-angle-right'></i></span></button>
                                         </a>
                                     {% else %}
                                     <!-- else go to the next card -->
                                         <a href="{% url 'healthCheckForm' card_index=card_index|add:'1' %}">
-                                            <label class="HC-continue-button">Continue<span class="arrow-right"><i class='fa-solid fa-angle-right'></i></span></label>
+                                            <button class="HC-continue-button">Continue<span class="arrow-right"><i class='fa-solid fa-angle-right'></i></span></button>
                                         </a>
                                     {% endif %}
                                 </div>
